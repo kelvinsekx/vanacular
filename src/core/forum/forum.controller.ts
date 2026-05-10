@@ -15,7 +15,7 @@ import { RolesGuard } from '../roles.guard';
 import { CreateForumDto } from './dto/create-forum.dto';
 import { UpdateForumDto } from './dto/update-forum.dto';
 
-@Controller('forum')
+@Controller('forums')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.ADMIN)
 export class ForumController {
@@ -44,5 +44,10 @@ export class ForumController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.forumService.remove(+id);
+  }
+
+  @Get(':id/classes')
+  findAllClasses(@Param('id') id: string) {
+    return this.forumService.findAllClass(id);
   }
 }

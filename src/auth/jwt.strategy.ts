@@ -14,6 +14,7 @@ type UserPayload = {
   jti: string;
   expiry: number;
   role: string;
+  classes: Record<string, any>;
 };
 
 export interface RequestWithPassportUser extends Request {
@@ -31,7 +32,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(
-    payload: User & { sub: string; exp: number; jti: string },
+    payload: User & {
+      sub: string;
+      exp: number;
+      jti: string;
+      class: Array<any>;
+    },
   ): Promise<RequestWithPassportUser['user']> {
     const blacklisted = await this.redis.exists(`jwt:${payload.jti}`);
     if (blacklisted === 1) {
@@ -39,6 +45,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     return {
+      classes: payload.class,
       userId: payload.sub,
       email: payload.email,
       jti: payload.jti,

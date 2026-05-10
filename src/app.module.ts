@@ -17,6 +17,7 @@ import { MessageModule } from './message/message.module';
 
 import { LanguagesService } from './languages/languages.service';
 import { LanguageRepository } from './core/common/language.repository';
+import { LessonsModule } from './lessons/lessons.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { LanguageRepository } from './core/common/language.repository';
     PrismaModule,
     ForumModule,
     MessageModule,
+    LessonsModule,
   ],
   controllers: [AppController],
   providers: [

@@ -7,6 +7,7 @@ import { LanguageRepository } from 'src/core/common/language.repository';
 export class LanguagesService {
   private readonly logger = new Logger(LanguagesService.name);
   cacheLangKey = 'languages:all';
+
   constructor(
     @InjectRedis() private readonly redis: Redis,
     private readonly langRepo: LanguageRepository,
@@ -17,15 +18,29 @@ export class LanguagesService {
 
     if (cachedLanguages) {
       this.logger.debug('Cache HIT - Returning languages from Redis');
-      return cachedLanguages;
+      return JSON.parse(cachedLanguages) as Array<{
+        id: number;
+        name: string;
+        identityExpression: string;
+      }>;
     }
 
     this.logger.debug('Cache MISS - Fetch from database');
 
     const languages = await this.langRepo.findAllLanguages();
+
     await this.redis.set(this.cacheLangKey, JSON.stringify(languages));
 
     return languages;
+  }
+
+  async findLanguage(id: number | null) {
+    const langs = await this.getLanguages();
+    if (langs) {
+      const lang = langs.find((lang) => lang.id == id);
+      return lang || null;
+    }
+    return null;
   }
 
   async createLanguage(data: { name: string; identityExpression: string }) {

@@ -31,11 +31,23 @@ enum ClassRole {
   MODERATOR
 }
 
-enum ContentType {
-  TEXT
-  IMAGE
-  VIDEO
-  AUDIO
+enum ActivityType {
+  MULTI_CHOICE
+  IMAGE_CHOICE
+  STORY
+  RADIO
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum ActivityProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
 }
 
 model User {
@@ -60,42 +72,148 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  posts     Post[]
+
+  posts            Post[]
+  activityProgress UserActivityProgress[]
 }
 
-model Module {
-  id         String         @id @default(uuid(7))
-  languageId Int
-  language   TargetLanguage @relation(fields: [languageId], references: [id])
-  lessons    Lesson[]
+model UserActivityProgress {
+  id String @id @default(uuid(7))
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  activityId String
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
+  status ActivityProgressStatus @default(IN_PROGRESS)
+  score  Float?
+
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([userId, activityId])
 }
 
 model Lesson {
-  id       String @id @default(uuid(7))
-  moduleId String
-  module   Module @relation(fields: [moduleId], references: [id])
-  title    String
-  order    Int
-  xpReward Int    @default(100)
+  id    String @id @default(uuid(7))
+  title String
+  order Int
 
-  content LessonContent[]
+  lessonClassId String @default("7d98c187-ba47-49fe-9ec0-dca9189f3b90")
+  lessonClass   Class  @relation(fields: [lessonClassId], references: [id])
+
+  activities Activity[]
 }
 
-model LessonContent {
-  id       String      @id @default(uuid(7))
+model Activity {
+  id String @id @default(uuid(7))
+
   lessonId String
-  type     ContentType
-  data     Json
-  order    Int
-  lesson   Lesson      @relation(fields: [lessonId], references: [id])
+  type     ActivityType
+
+  order Int
+
+  xpReward   Int         @default(10)
+  difficulty Difficulty?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lesson Lesson @relation(fields: [lessonId], references: [id])
+
+  multiChoice MultiChoiceActivity?
+  story       StoryActivity?
+  radio       RadioChoiceActivity?
+
+  activityProgress UserActivityProgress[]
+}
+
+model MultiChoiceActivity {
+  id String @id @default(uuid(7))
+
+  activityId String @unique
+
+  prompt      String
+  explanation String?
+
+  shuffle Boolean @default(true)
+
+  activity Activity @relation(fields: [activityId], references: [id])
+
+  options MultipleChoiceOption[]
+  hints   Hint[]
+}
+
+model MultipleChoiceOption {
+  id Int @id @default(autoincrement())
+
+  activityId String
+
+  text String?
+
+  imageUrl String?
+  alt      String?
+
+  isCorrect Boolean @default(false)
+
+  position Int?
+
+  activity MultiChoiceActivity @relation(fields: [activityId], references: [id])
+}
+
+model StoryActivity {
+  id String @id @default(uuid())
+
+  activityId String @unique
+
+  title String
+
+  activity Activity @relation(fields: [activityId], references: [id])
+
+  pages StoryPage[]
+}
+
+model StoryPage {
+  id String @id @default(cuid())
+
+  storyId String
+
+  content  String
+  imageUrl String?
+
+  order Int
+
+  story StoryActivity @relation(fields: [storyId], references: [id])
+}
+
+model RadioChoiceActivity {
+  id String @id @default(cuid())
+
+  activityId String @unique
+
+  audioUrl   String
+  transcript String?
+
+  activity Activity @relation(fields: [activityId], references: [id])
+}
+
+model Hint {
+  id         String   @id @default(uuid())
+  activityId String
+  text       String
+  order      Int?
+  createdAt  DateTime @default(now())
+
+  activity MultiChoiceActivity @relation(fields: [activityId], references: [id])
 }
 
 model TargetLanguage {
-  id                 Int      @id @default(autoincrement())
-  name               String   @unique
-  identityExpression String @default("")
+  id                 Int     @id @default(autoincrement())
+  name               String  @unique
+  identityExpression String  @default("")
   users              User[]
-  modules            Module[]
   forums             Forum[]
 }
 
@@ -160,4 +278,5 @@ model Class {
   forumId     String       @unique
   forum       Forum        @relation(fields: [forumId], references: [id])
   memberships Membership[]
+  lessons     Lesson[]
 }

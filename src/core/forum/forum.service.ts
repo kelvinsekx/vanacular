@@ -3,11 +3,13 @@ import { CreateForumDto } from './dto/create-forum.dto';
 import { UpdateForumDto } from './dto/update-forum.dto';
 import { PrismaService } from 'src/prisma.service';
 import { LanguageRepository } from '../common/language.repository';
+import { ClassRepository } from '../common/classes.repository';
 
 @Injectable()
 export class ForumService {
   constructor(
     private readonly prisma: PrismaService,
+    private readonly classRepo: ClassRepository,
     private readonly languageRepo: LanguageRepository,
   ) {}
 
@@ -45,6 +47,10 @@ export class ForumService {
     return this.prisma.forum.findMany({
       take: 10,
     });
+  }
+
+  async findAllClass(forumId: string) {
+    return await this.classRepo.getAllClassesInForum(forumId);
   }
 
   findOne(id: number) {

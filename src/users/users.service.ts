@@ -15,16 +15,23 @@ export class UsersService {
     return await this.prisma.user.create({ data });
   }
 
-  async findOneByEmail(email: string): Promise<User | null> {
+  async findOneByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: { email },
+
       include: {
         memberships: {
-          include: {
+          orderBy: {
+            class: {
+              level: 'asc',
+            },
+          },
+          select: {
             class: {
               select: {
                 id: true,
                 name: true,
+                level: true,
               },
             },
           },

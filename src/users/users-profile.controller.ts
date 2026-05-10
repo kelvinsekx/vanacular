@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { UsersProfileService } from './users-profile.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-
+import { type RequestWithPassportUser } from 'src/auth/jwt.strategy';
 import { UpdateUserDto } from './users.dto';
 
 @Controller('users/me/profile')
@@ -18,21 +18,24 @@ export class UsersProfileController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getProfileSettings(@Request() req) {
-    return await this.usersProfileService.getAUserProfileAndSettings(
+  async getProfileSettings(@Request() req: RequestWithPassportUser) {
+    return await this.usersProfileService.getUserProfileAndSettings(
       req.user.email,
     );
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('/stats')
-  async getAUserStats() {
-    return this.usersProfileService.getAUserStatsAndHistory();
+  getUserStats() {
+    return this.usersProfileService.getUserStatsAndHistory();
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch()
-  updateProfileSettings(@Body() body: UpdateUserDto, @Request() req) {
+  updateProfileSettings(
+    @Body() body: UpdateUserDto,
+    @Request() req: RequestWithPassportUser,
+  ) {
     if (!body)
       throw new BadRequestException('req.body object is empty or undefined');
     return this.usersProfileService.updateUserProfile(req.user.email, body);

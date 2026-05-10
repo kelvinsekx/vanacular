@@ -54,6 +54,7 @@ export class AuthService {
     const loggedInUser = await this.usersService.findOneByEmail(user.email);
 
     const payload = {
+      class: loggedInUser?.memberships,
       email: loggedInUser?.email,
       sub: loggedInUser?.id,
       jti: uuidv4(),
@@ -68,7 +69,11 @@ export class AuthService {
   async signup(firstTimeUser: Prisma.UserCreateInput) {
     const user = await this.usersService.findOneByEmail(firstTimeUser.email);
 
-    if (user) throw new BadRequestException('user already exist');
+    if (user)
+      throw new BadRequestException({
+        message: 'user already exist',
+        field: `C ${AuthService.name} signup`,
+      });
 
     const hashedPassword = await this.passwordService.hassPasword(
       firstTimeUser.password,

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Hint" ALTER COLUMN "order" DROP NOT NULL;

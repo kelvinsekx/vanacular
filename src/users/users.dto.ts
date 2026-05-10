@@ -78,12 +78,16 @@ export class UpdateUserDto {
 
 /**
  * Login Dto
+ *
+ * @param email string
+ * @param password string with min length of 8
  * */
 export class LoginDto {
   @IsEmail()
   readonly email: string;
 
+  @IsOptional()
   @IsString()
   @MinLength(8)
-  readonly password: string;
+  readonly password?: string;
 }

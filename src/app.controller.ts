@@ -16,7 +16,7 @@ import { AuthService } from './auth/auth.service';
 import { type User } from './../src/generated/prisma/client';
 
 import { CreateUserDto } from './users/users.dto';
-
+import { type RequestWithPassportUser } from './auth/jwt.strategy';
 import { ClassRepository } from './core/common/classes.repository';
 import { LanguagesService } from './languages/languages.service';
 
@@ -60,7 +60,7 @@ export class AppController {
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  login(@Request() req: any) {
+  login(@Request() req: RequestWithPassportUser) {
     return this.authService.login(req.user);
   }
 
