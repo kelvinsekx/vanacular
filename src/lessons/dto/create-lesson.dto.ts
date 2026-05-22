@@ -38,7 +38,7 @@ export class MultipleChoiceOptionDto {
 
   @IsOptional()
   @IsString()
-  imageUrl?: string;
+  assetId?: string;
 
   @IsOptional()
   @IsString()
@@ -75,6 +75,9 @@ export class CreateMultiChoiceActivityDto extends PartialType(BaseActivityDto) {
 
   @IsString()
   prompt: string;
+
+  @IsString()
+  title: string;
 
   @IsOptional()
   @IsString()

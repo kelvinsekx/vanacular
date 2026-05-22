@@ -271,6 +271,8 @@ export class LessonsService {
         id: currentActivity.id,
         type: currentActivity.type,
         order: currentActivity.order,
+        locked: false,
+        title: currentActivity.title,
         lesson: {
           id: currentLesson.id,
           title: currentLesson.title,

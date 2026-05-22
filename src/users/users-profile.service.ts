@@ -4,6 +4,7 @@ import { LanguagesService } from 'src/languages/languages.service';
 import { ClassRepository } from 'src/core/common/classes.repository';
 import { UpdateUserDto } from './users.dto';
 import { removeUndefinedProps } from 'src/core/utils/uti';
+import { User } from 'src/generated/prisma/client';
 
 @Injectable()
 export class UsersProfileService {
@@ -14,27 +15,23 @@ export class UsersProfileService {
   ) {}
 
   async getUserProfileAndSettings(userEmail: string) {
-    /**
-     * Return the following:
-     * User's firstName and LastName
-     * If User is on premium
-     * If user has done their first lessons or not
-     * Number of daily streaks
-     *  Number of total accumulated kantas
-     *
-     * */
-    const user = await this.usersService.findOneByEmail(userEmail);
+    const user: Partial<User> | null =
+      await this.usersService.findOneByEmail(userEmail);
 
     if (!user) throw new UnauthorizedException();
 
-    const lang = await this.langService.findLanguage(user.targetLanguageId);
+    const lang = await this.langService.findLanguage(
+      Number(user?.targetLanguageId),
+    );
 
-    const langClass = await this.classRepo.getUserClass(user.id);
+    const langClass = await this.classRepo.getUserClass(user?.id || '');
+
+    delete user.password;
+    delete user.role;
+    delete user.targetLanguageId;
 
     return {
-      id: user.id,
-      bio: user.bio,
-      avatarUrl: user.avatarUrl,
+      user,
       learningLanguage: lang,
       fromLanguage: 'en',
       streak: 0,
@@ -44,6 +41,7 @@ export class UsersProfileService {
       joinedDate: user.createdAt,
       dailyGoal: user.dailyXpGoal,
       todayXp: 0,
+      isPremiumUser: false,
       hasCompletedFirstLesson: false,
     };
   }

@@ -6,10 +6,14 @@ import {
 import { PrismaService } from 'src/prisma.service';
 import { Prisma, User } from './../generated/prisma/client';
 import { RequestWithPassportUser } from 'src/auth/jwt.strategy';
+import { JobsService } from 'src/core/job-service';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jobService: JobsService,
+  ) {}
 
   async registerUser(data: Prisma.UserCreateInput) {
     return await this.prisma.user.create({ data });
@@ -69,7 +73,16 @@ export class UsersService {
     return 'DELETED';
   }
 
-  async setupNewLearnerAccount(student: RequestWithPassportUser['user']) {
+  async setupNewLearnerAccount(
+    student: RequestWithPassportUser['user'],
+    jobId: string,
+  ) {
+    this.jobService.emit(jobId, {
+      data: {
+        step: 'Setting up your profile',
+      },
+    });
+
     const user = await this.prisma.user.findUnique({
       where: {
         email: student.email,
@@ -87,6 +100,23 @@ export class UsersService {
     if (!user) throw new UnauthorizedException();
     if (typeof user.targetLanguageId !== 'number')
       throw new NotFoundException('This is not a valid language id');
+
+    const isExistingMember = await this.prisma.membership.findFirst({
+      where: {
+        userId: student.userId,
+      },
+    });
+
+    if (isExistingMember)
+      throw new UnauthorizedException({
+        message: 'This user is already setup',
+      });
+
+    this.jobService.emit(jobId, {
+      data: {
+        step: 'Creating a  forum and class for you',
+      },
+    });
 
     return this.prisma.$transaction(async (tx) => {
       const forum = await tx.forum.findFirst({
@@ -108,6 +138,12 @@ export class UsersService {
         );
       }
 
+      this.jobService.emit(jobId, {
+        data: {
+          step: 'Setting your lessons',
+        },
+      });
+
       const targetClass = forum.classes[0];
 
       await tx.membership.create({
@@ -118,7 +154,14 @@ export class UsersService {
         },
       });
 
+      this.jobService.emit(jobId, {
+        data: {
+          step: 'Finish',
+        },
+      });
+
       return {
+        jobId,
         enrolledIn: targetClass.name,
         forumId: targetClass.forumId,
         language: user.targetLanguage?.name,

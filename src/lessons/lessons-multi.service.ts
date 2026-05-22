@@ -8,7 +8,7 @@ import {
   UpdateMultiActivityDto,
   UpdateOptionParamsDto,
 } from './dto/create-lesson.dto';
-import { UpdateLessonDto, UpdateOptionDto } from './dto/update-lesson.dto';
+import { UpdateOptionDto } from './dto/update-lesson.dto';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -41,13 +41,14 @@ export class LessonsMultiTypeService {
         lessonId,
         type: dto.type,
         order: dto.order,
+        title: dto.title,
         multiChoice: {
           create: {
             prompt: dto.prompt,
             options: {
               create: dto.options.map((option, index) => ({
                 text: option.text,
-                imageUrl: option.imageUrl,
+                assetId: option.assetId,
                 isCorrect: option.isCorrect,
                 position: index,
               })),
@@ -149,7 +150,7 @@ export class LessonsMultiTypeService {
       where: { id: optionId },
       data: {
         text: updateOptionDto.text,
-        imageUrl: updateOptionDto.imageUrl,
+        assetId: updateOptionDto.assetId,
         isCorrect: updateOptionDto.isCorrect,
         position: updateOptionDto.position,
         alt: updateOptionDto.alt,

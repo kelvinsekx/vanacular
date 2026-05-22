@@ -18,6 +18,9 @@ import { MessageModule } from './message/message.module';
 import { LanguagesService } from './languages/languages.service';
 import { LanguageRepository } from './core/common/language.repository';
 import { LessonsModule } from './lessons/lessons.module';
+import { ActivitiesModule } from './activities/activities.module';
+import { FileController } from './file/file.controller';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -39,6 +42,8 @@ import { LessonsModule } from './lessons/lessons.module';
     ForumModule,
     MessageModule,
     LessonsModule,
+    ActivitiesModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [

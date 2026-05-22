@@ -18,7 +18,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
     if (!user) {
       this.logger.debug('USER UNMATCH: Their email and password may not match');
-      throw new UnauthorizedException();
+      throw new UnauthorizedException({
+        message: "Email or password don't match",
+      });
     }
 
     return user;

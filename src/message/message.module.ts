@@ -7,6 +7,7 @@ import { SendMessageUseCase } from './message.service';
 import { GetMessagesUseCase } from './use-cases/get-message.use-case';
 import { ForumRepository } from 'src/core/common/forum.repository';
 import { MessageRepository } from 'src/core/messages.repository';
+import { JobsService } from 'src/core/job-service';
 
 @Module({
   controllers: [MessageController],
@@ -17,6 +18,7 @@ import { MessageRepository } from 'src/core/messages.repository';
     GetMessagesUseCase,
     ForumRepository,
     MessageRepository,
+    JobsService,
   ],
 })
 export class MessageModule {}

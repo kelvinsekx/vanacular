@@ -14,7 +14,7 @@ type UserPayload = {
   jti: string;
   expiry: number;
   role: string;
-  classes: Record<string, any>;
+  classes: Array<Record<'id', string>>;
 };
 
 export interface RequestWithPassportUser extends Request {

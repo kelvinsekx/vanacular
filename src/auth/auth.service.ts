@@ -33,7 +33,10 @@ export class AuthService {
   ): Promise<Partial<User> | null> {
     const user = await this.usersService.findOneByEmail(email);
 
-    if (!user) throw new BadRequestException('can not find user');
+    if (!user)
+      throw new BadRequestException({
+        message: "Email or password don't match",
+      });
 
     const isTaly = await this.passwordService.compareHashPassword(
       password,

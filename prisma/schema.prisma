@@ -50,6 +50,13 @@ enum ActivityProgressStatus {
   COMPLETED
 }
 
+enum AssetType {
+  IMAGE
+  AUDIO
+  VIDEO
+  DOCUMENT
+}
+
 model User {
   id                String            @id @default(uuid(7))
   email             String            @unique
@@ -108,7 +115,8 @@ model Lesson {
 }
 
 model Activity {
-  id String @id @default(uuid(7))
+  id    String @id @default(uuid(7))
+  title String
 
   lessonId String
   type     ActivityType
@@ -128,6 +136,27 @@ model Activity {
   radio       RadioChoiceActivity?
 
   activityProgress UserActivityProgress[]
+}
+
+model Asset {
+  id          String    @id @default(uuid(7))
+  type        AssetType
+  name        String
+  alt         String?
+  description String?
+
+  key String @unique
+
+  mimeType String?
+  size     Int?
+
+  width  Int?
+  height Int?
+
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  storyPages            StoryPage[]
+  multipleChoiceOptions MultipleChoiceOption[]
 }
 
 model MultiChoiceActivity {
@@ -153,14 +182,15 @@ model MultipleChoiceOption {
 
   text String?
 
-  imageUrl String?
-  alt      String?
+  asset Asset?  @relation(fields: [assetId], references: [id])
+  alt   String?
 
   isCorrect Boolean @default(false)
 
   position Int?
 
   activity MultiChoiceActivity @relation(fields: [activityId], references: [id])
+  assetId  String?
 }
 
 model StoryActivity {
@@ -180,12 +210,13 @@ model StoryPage {
 
   storyId String
 
-  content  String
-  imageUrl String?
+  content String
+  asset   Asset  @relation(fields: [assetId], references: [id])
 
   order Int
 
-  story StoryActivity @relation(fields: [storyId], references: [id])
+  story   StoryActivity @relation(fields: [storyId], references: [id])
+  assetId String
 }
 
 model RadioChoiceActivity {
