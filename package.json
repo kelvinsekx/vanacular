@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build": "prisma generate && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"prisma/seeds/**/*.ts\"",
     "format:watch": "chokidar  \"src/**/*.ts\" \"test/**/*.ts\" -c \"prettier --write {path}\"",
     "start": "nest start",
