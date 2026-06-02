@@ -19,7 +19,6 @@ import { LanguagesService } from './languages/languages.service';
 import { LanguageRepository } from './core/common/language.repository';
 import { LessonsModule } from './lessons/lessons.module';
 import { ActivitiesModule } from './activities/activities.module';
-import { FileController } from './file/file.controller';
 import { FileModule } from './file/file.module';
 
 @Module({
@@ -31,7 +30,7 @@ import { FileModule } from './file/file.module';
     }),
     RedisModule.forRoot({
       type: 'single',
-      url: 'redis://localhost:6379',
+      url: process.env.REDIS_URL || 'redis://localhost:6379',
       onClientReady: (client) => {
         client.on('error', (err) => console.log('Redis error:', err));
       },

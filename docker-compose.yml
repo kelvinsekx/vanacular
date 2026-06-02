@@ -1,6 +1,21 @@
-version: '3.9'
-
 services:
+  # 1. Your NestJS App (Added here!)
+  api:
+    build: .
+    container_name: nest-api
+    ports:
+      - '10000:10000'
+    environment:
+      - PORT=10000
+      # Points to the 'postgres' service name below
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/nestdb?schema=public
+      # Points to the 'redis' service name below
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+
+  # 2. Your Postgres DB
   postgres:
     image: postgres:15
     container_name: nest-postgres
@@ -14,6 +29,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  # 3. Your Redis Cache
   redis:
     image: redis:7
     container_name: nest-redis
