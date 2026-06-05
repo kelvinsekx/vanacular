@@ -2,18 +2,16 @@ import {
   Injectable,
   UnauthorizedException,
   NotFoundException,
+  Logger,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { Prisma, User } from './../generated/prisma/client';
-import { RequestWithPassportUser } from 'src/auth/jwt.strategy';
-import { JobsService } from 'src/core/job-service';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    private prisma: PrismaService,
-    private jobService: JobsService,
-  ) {}
+  private logger = new Logger();
+
+  constructor(private prisma: PrismaService) {}
 
   async registerUser(data: Prisma.UserCreateInput) {
     return await this.prisma.user.create({ data });
@@ -73,15 +71,14 @@ export class UsersService {
     return 'DELETED';
   }
 
-  async setupNewLearnerAccount(
-    student: RequestWithPassportUser['user'],
-    jobId: string,
-  ) {
-    this.jobService.emit(jobId, {
-      data: {
-        step: 'Setting up your profile',
-      },
-    });
+  async setupNewLearnerAccount(student: {
+    email: string;
+    userId: string | undefined;
+  }) {
+    const methodName = 'onsetupNewLearnerAccount';
+    const startTimer = Date.now();
+
+    this.logger.log(`[${methodName}] - find user first`);
 
     const user = await this.prisma.user.findUnique({
       where: {
@@ -97,9 +94,19 @@ export class UsersService {
       },
     });
 
-    if (!user) throw new UnauthorizedException();
-    if (typeof user.targetLanguageId !== 'number')
+    if (!user) {
+      this.logger.debug(
+        `[${methodName}] - couldn't find user with ${student.email}`,
+      );
+      throw new UnauthorizedException();
+    }
+
+    if (typeof user.targetLanguageId !== 'number') {
+      this.logger.debug(
+        `[${methodName}] - on user (${student.email}) setup, an invalid language ID was used`,
+      );
       throw new NotFoundException('This is not a valid language id');
+    }
 
     const isExistingMember = await this.prisma.membership.findFirst({
       where: {
@@ -107,16 +114,18 @@ export class UsersService {
       },
     });
 
-    if (isExistingMember)
+    if (isExistingMember) {
+      this.logger.debug(
+        `[${methodName}] - user with email (${student.email}) already belong to a forum`,
+      );
       throw new UnauthorizedException({
         message: 'This user is already setup',
       });
+    }
 
-    this.jobService.emit(jobId, {
-      data: {
-        step: 'Creating a  forum and class for you',
-      },
-    });
+    this.logger.log(
+      `[${methodName}] - user do not belong to any class/forum -  proceed to setup user to forum and class`,
+    );
 
     return this.prisma.$transaction(async (tx) => {
       const forum = await tx.forum.findFirst({
@@ -133,18 +142,22 @@ export class UsersService {
       });
 
       if (!forum || !forum.classes.length) {
+        this.logger.debug(
+          `[${methodName}] - No class in this forum. ADMIN CORE (took ${Date.now() - startTimer} ms)`,
+        );
         throw new NotFoundException(
-          `No class available for ${user.targetLanguage?.name}`,
+          `No class available for ${user.targetLanguage?.name}. Sorry, this is our fault. Our facilitator will work on this and let you know.`,
         );
       }
 
-      this.jobService.emit(jobId, {
-        data: {
-          step: 'Setting your lessons',
-        },
-      });
-
       const targetClass = forum.classes[0];
+
+      this.logger.log(
+        `[${methodName}] - Adding user to class - ${targetClass.name}`,
+        {
+          forumClass: targetClass,
+        },
+      );
 
       await tx.membership.create({
         data: {
@@ -154,17 +167,18 @@ export class UsersService {
         },
       });
 
-      this.jobService.emit(jobId, {
-        data: {
-          step: 'Finish',
-        },
-      });
+      const timer = Date.now() - startTimer;
+      this.logger.debug(
+        `[${methodName}] - successfully setup user to classes and forum (took ${timer}ms)`,
+      );
 
       return {
-        jobId,
-        enrolledIn: targetClass.name,
-        forumId: targetClass.forumId,
-        language: user.targetLanguage?.name,
+        data: {
+          enrolledIn: targetClass.name,
+          forumId: targetClass.forumId,
+          language: user.targetLanguage?.name,
+        },
+        success: true,
       };
     });
   }

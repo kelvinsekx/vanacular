@@ -20,6 +20,7 @@ import { LanguageRepository } from './core/common/language.repository';
 import { LessonsModule } from './lessons/lessons.module';
 import { ActivitiesModule } from './activities/activities.module';
 import { FileModule } from './file/file.module';
+import { LanguagesController } from './languages/languages.controller';
 
 @Module({
   imports: [
@@ -44,7 +45,7 @@ import { FileModule } from './file/file.module';
     ActivitiesModule,
     FileModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, LanguagesController],
   providers: [
     AppService,
     AuthService,

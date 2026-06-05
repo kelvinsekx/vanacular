@@ -6,9 +6,23 @@ export class ClassRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async getAllClasses() {
-    return await this.prisma.class.findMany({
-      take: 10,
-    });
+    return {
+      data: await this.prisma.class.findMany({
+        take: 15,
+        select: {
+          id: true,
+          name: true,
+          level: true,
+          minPoints: true,
+          forum: {
+            select: {
+              name: true,
+              id: true,
+            },
+          },
+        },
+      }),
+    };
   }
 
   async getAllClassesInForum(forumId: string) {

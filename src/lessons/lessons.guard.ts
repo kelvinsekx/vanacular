@@ -43,7 +43,6 @@ export class ForumAccessGuard implements CanActivate {
       });
 
     request.forum = forum;
-    console.log(request.forum);
     return true;
   }
 }
