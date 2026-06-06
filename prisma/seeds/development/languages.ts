@@ -8,6 +8,12 @@ const prisma = new PrismaClient({
   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
 });
 
+type Language = {
+  id: number;
+  name: string;
+  identityExpression: string;
+};
+
 export async function seedLanguages() {
   const languages = [
     {
@@ -36,20 +42,50 @@ export async function seedLanguages() {
     },
   ];
 
-  for (const language of languages) {
-    await prisma.targetLanguage.upsert({
-      where: { name: language.name },
+  const result: Array<Language> = [];
+
+  for (let index = 0; index < languages.length; index++) {
+    const existingR = await prisma.targetLanguage.upsert({
+      where: { name: languages[index].name },
       update: {},
-      create: language,
+      create: languages[index],
+    });
+    result[index] = existingR;
+  }
+  return result;
+}
+
+export async function seedForumWithAtLeastOneClass(languages: Array<Language>) {
+  for (const lang of languages) {
+    await prisma.forum.upsert({
+      where: { name: lang.name },
+      update: {},
+      create: {
+        name: lang.name,
+        languageId: lang.id,
+        classes: {
+          create: [
+            {
+              level: 1,
+              name: 'Basic 1',
+              minPoints: 0,
+            },
+            {
+              level: 2,
+              name: 'Basic 2',
+              minPoints: 50,
+            },
+          ],
+        },
+      },
     });
   }
 }
-
-export async function seedAdmin() {
+export async function seedAdmin(targetLanguageId: number) {
   const ADMIN_USER = {
     email: process.env.ADMIN_EMAIL as string,
     password: process.env.ADMIN_PASSWORD as string,
-    targetLanguageId: 2,
+    targetLanguageId,
   };
 
   await prisma.user.upsert({

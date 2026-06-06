@@ -265,7 +265,7 @@ model Membership {
 
 model Forum {
   id         String         @id @default(uuid())
-  name       String
+  name       String         @unique
   languageId Int
   language   TargetLanguage @relation(fields: [languageId], references: [id])
   classes    Class[]
@@ -306,7 +306,7 @@ model Class {
   level       Int
   name        String
   minPoints   Int
-  forumId     String       @unique
+  forumId     String   
   forum       Forum        @relation(fields: [forumId], references: [id])
   memberships Membership[]
   lessons     Lesson[]

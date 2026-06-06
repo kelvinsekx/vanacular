@@ -18,7 +18,6 @@ import { type User } from './../src/generated/prisma/client';
 import { CreateUserDto } from './users/users.dto';
 import { type RequestWithPassportUser } from './auth/jwt.strategy';
 import { ClassRepository } from './core/common/classes.repository';
-import { LanguagesService } from './languages/languages.service';
 
 @Controller()
 export class AppController {
@@ -27,7 +26,6 @@ export class AppController {
     private readonly appService: AppService,
     private authService: AuthService,
     private readonly classRepo: ClassRepository,
-    private readonly languageService: LanguagesService,
   ) {}
 
   @Get()
@@ -42,20 +40,18 @@ export class AppController {
     return { message: k };
   }
 
-  @Get('/get-languages')
-  async getLanguages() {
-    return this.languageService.getLanguages();
-  }
-
   @Post('auth/signup')
   signup(@Body() body: CreateUserDto) {
     const { targetLanguage, ...rest } = body;
-    return this.authService.signup({
-      ...rest,
-      targetLanguage: {
-        connect: { id: targetLanguage },
+    return this.authService.signup(
+      {
+        ...rest,
+        targetLanguage: {
+          connect: { id: targetLanguage },
+        },
       },
-    });
+      targetLanguage,
+    );
   }
 
   @UseGuards(LocalAuthGuard)

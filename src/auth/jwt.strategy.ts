@@ -36,7 +36,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       sub: string;
       exp: number;
       jti: string;
-      class: Array<any>;
+      class: Array<Record<string, string>>;
     },
   ): Promise<RequestWithPassportUser['user']> {
     const blacklisted = await this.redis.exists(`jwt:${payload.jti}`);
