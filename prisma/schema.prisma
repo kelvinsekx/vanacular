@@ -19,6 +19,8 @@ enum LearningObjective {
   PROFESSIONAL
   TRAVEL
   EXAM
+  FAMILY_AND_FRIENDS
+  PRACTICE
 }
 
 enum Role {
