@@ -16,14 +16,14 @@ import {
  */
 export class CreateUserDto {
   @IsEmail()
-  readonly email: string;
+  email: string;
 
   @IsNumber()
-  readonly targetLanguage: number;
+  targetLanguage: number;
 
   @IsString()
   @MinLength(8)
-  readonly password: string;
+  password: string;
 }
 
 /**

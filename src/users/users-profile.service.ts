@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { LanguagesService } from 'src/languages/languages.service';
 import { ClassRepository } from 'src/core/common/classes.repository';
@@ -8,6 +13,7 @@ import { User } from 'src/generated/prisma/client';
 
 @Injectable()
 export class UsersProfileService {
+  private readonly logger = new Logger();
   constructor(
     private readonly usersService: UsersService,
     private readonly langService: LanguagesService,
@@ -51,7 +57,23 @@ export class UsersProfileService {
   }
 
   async updateUserProfile(userEmail: string, body: UpdateUserDto) {
-    await this.usersService.updateUser(userEmail, removeUndefinedProps(body));
-    return { message: `Profile updated` };
+    const methodName = 'updateUserProfile';
+    try {
+      if (!body) {
+        this.logger.debug(
+          `[${methodName}] - attempt to update user - ${userEmail} - with empty body request`,
+        );
+        throw new BadRequestException('req.body object is empty or undefined');
+      }
+      await this.usersService.updateUser(userEmail, removeUndefinedProps(body));
+      this.logger.log(`[${methodName}] - updated user (${userEmail}) profile`);
+      return { message: `Profile updated` };
+    } catch (error) {
+      this.logger.debug(
+        `[${methodName}] - caught an error when trying to update user profile`,
+        { stack: error as string },
+      );
+      throw new BadRequestException(error);
+    }
   }
 }

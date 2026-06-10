@@ -36,8 +36,6 @@ export class UsersProfileController {
     @Body() body: UpdateUserDto,
     @Request() req: RequestWithPassportUser,
   ) {
-    if (!body)
-      throw new BadRequestException('req.body object is empty or undefined');
     return this.usersProfileService.updateUserProfile(req.user.email, body);
   }
 }
