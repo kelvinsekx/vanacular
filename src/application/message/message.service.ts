@@ -3,9 +3,9 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from 'src/application/users/users.service';
 import { SendMessageDto, MessageResponseDto, MessageType } from './message.dto';
-import { RequestWithPassportUser } from 'src/auth/jwt.strategy';
+import { RequestWithPassportUser } from 'src/application/auth/jwt.strategy';
 
 import { MessageRepository } from 'src/core/messages.repository';
 import { ForumRepository } from 'src/core/common/forum.repository';

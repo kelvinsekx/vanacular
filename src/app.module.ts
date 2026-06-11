@@ -1,26 +1,27 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
-import { RedisModule } from '@nestjs-modules/ioredis';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { AuthService } from './auth/auth.service';
+
 import { ClassRepository } from './core/common/classes.repository';
-
-import { jwtConstants } from './auth/constants';
-import { PrismaModule } from './prisma.service';
 import { ForumModule } from './core/forum/forum.module';
-import { MessageModule } from './message/message.module';
-
-import { LanguagesService } from './languages/languages.service';
 import { LanguageRepository } from './core/common/language.repository';
-import { LessonsModule } from './lessons/lessons.module';
-import { ActivitiesModule } from './activities/activities.module';
-import { FileModule } from './file/file.module';
-import { LanguagesController } from './languages/languages.controller';
+
+import { PrismaModule } from './infra/database/prisma.service';
+import { RedisModule } from './infra/redis/redis.module';
+
+import { MessageModule } from './application/message/message.module';
+import { LanguagesService } from './application/languages/languages.service';
+import { LessonsModule } from './application/lessons/lessons.module';
+import { ActivitiesModule } from './application/activities/activities.module';
+import { FileModule } from './application/file/file.module';
+import { LanguagesController } from './application/languages/languages.controller';
+import { jwtConstants } from './application/auth/constants';
+import { AuthModule } from './application/auth/auth.module';
+import { UsersModule } from './application/users/users.module';
+import { AuthService } from './application/auth/auth.service';
 
 @Module({
   imports: [
@@ -29,13 +30,7 @@ import { LanguagesController } from './languages/languages.controller';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '8h' },
     }),
-    RedisModule.forRoot({
-      type: 'single',
-      url: process.env.REDIS_URL || 'redis://localhost:6379',
-      onClientReady: (client) => {
-        client.on('error', (err) => console.log('Redis error:', err));
-      },
-    }),
+    RedisModule,
     AuthModule,
     UsersModule,
     PrismaModule,

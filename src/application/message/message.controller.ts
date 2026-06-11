@@ -8,9 +8,9 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { type RequestWithPassportUser } from 'src/auth/jwt.strategy';
+import { type RequestWithPassportUser } from 'src/application/auth/jwt.strategy';
 import { SendMessageDto } from './message.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/application/auth/jwt-auth.guard';
 import { MessageService } from './message.service';
 
 @Controller('rooms/:forumId/message')

@@ -9,12 +9,12 @@ import {
   NotFoundException,
   Logger,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { type RequestWithPassportUser } from 'src/auth/jwt.strategy';
+import { PrismaService } from 'src/infra/database/prisma.service';
+import { JwtAuthGuard } from 'src/application/auth/jwt-auth.guard';
+import { type RequestWithPassportUser } from 'src/application/auth/jwt.strategy';
 
 import { UsersService } from './users.service';
-import { LessonsService } from 'src/lessons/lessons.service';
+import { LessonsService } from 'src/application/lessons/lessons.service';
 
 @Controller('users')
 export class UsersController {

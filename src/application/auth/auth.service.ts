@@ -10,9 +10,9 @@ import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import Redis from 'ioredis';
 import { InjectRedis } from '@nestjs-modules/ioredis';
-import { UsersService } from 'src/users/users.service';
-import { LoginDto } from 'src/users/users.dto';
-import { LanguagesService } from 'src/languages/languages.service';
+import { UsersService } from 'src/application/users/users.service';
+import { LoginDto } from 'src/application/users/users.dto';
+import { LanguagesService } from 'src/application/languages/languages.service';
 import { User, Prisma } from 'src/generated/prisma/client';
 
 type TokenExpiry = {

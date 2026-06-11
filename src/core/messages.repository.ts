@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
-import { type SendMessageCommand } from 'src/message/message.service';
+import { PrismaService } from 'src/infra/database/prisma.service';
+import { type SendMessageCommand } from 'src/application/message/message.service';
 
 export interface QueryOptions {
   take: number;

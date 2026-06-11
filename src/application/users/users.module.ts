@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { LanguagesService } from 'src/languages/languages.service';
+import { LanguagesService } from 'src/application/languages/languages.service';
 import { LanguageRepository } from 'src/core/common/language.repository';
 import { UsersProfileController } from './users-profile.controller';
 import { UsersProfileService } from './users-profile.service';
 import { UsersController } from './users.controller';
 import { ClassRepository } from 'src/core/common/classes.repository';
-import { LessonsService } from 'src/lessons/lessons.service';
+import { LessonsService } from 'src/application/lessons/lessons.service';
 import { JobsService } from 'src/core/job-service';
 
 @Module({

@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { ForumService } from './forum.service';
 import { Roles, Role } from '../roles.decorator';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/application/auth/jwt-auth.guard';
 import { RolesGuard } from '../roles.guard';
 import { CreateForumDto } from './dto/create-forum.dto';
 import { UpdateForumDto } from './dto/update-forum.dto';

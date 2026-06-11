@@ -4,8 +4,8 @@ import {
   NotFoundException,
   Logger,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
-import { Prisma, User } from './../generated/prisma/client';
+import { PrismaService } from 'src/infra/database/prisma.service';
+import { Prisma, User } from '../../generated/prisma/client';
 
 @Injectable()
 export class UsersService {

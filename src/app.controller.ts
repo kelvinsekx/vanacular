@@ -10,13 +10,13 @@ import Redis from 'ioredis';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 
 import { AppService } from './../src/app.service';
-import { LocalAuthGuard } from './auth/local-auth.guard';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { AuthService } from './auth/auth.service';
+import { LocalAuthGuard } from './application/auth/local-auth.guard';
+import { JwtAuthGuard } from './application/auth/jwt-auth.guard';
+import { AuthService } from './application/auth/auth.service';
 import { type User } from './../src/generated/prisma/client';
 
-import { CreateUserDto } from './users/users.dto';
-import { type RequestWithPassportUser } from './auth/jwt.strategy';
+import { CreateUserDto } from './application/users/users.dto';
+import { type RequestWithPassportUser } from './application/auth/jwt.strategy';
 import { ClassRepository } from './core/common/classes.repository';
 
 @Controller()

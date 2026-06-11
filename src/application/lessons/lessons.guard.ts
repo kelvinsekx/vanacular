@@ -5,7 +5,7 @@ import {
   ExecutionContext,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/infra/database/prisma.service';
 import { Request } from 'express';
 import { Forum } from 'src/generated/prisma/client';
 

@@ -9,7 +9,7 @@ import {
   UpdateOptionParamsDto,
 } from './dto/create-lesson.dto';
 import { UpdateOptionDto } from './dto/update-lesson.dto';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/infra/database/prisma.service';
 
 @Injectable()
 export class LessonsMultiTypeService {

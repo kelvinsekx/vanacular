@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateLessonDto } from './dto/create-lesson.dto';
 import { UpdateLessonDto } from './dto/update-lesson.dto';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/infra/database/prisma.service';
 import { type Lesson, type Activity } from 'src/generated/prisma/client';
 
 @Injectable()

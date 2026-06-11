@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ForumRepository } from 'src/core/common/forum.repository';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from 'src/application/users/users.service';
 import {
   MessageRepository,
   type QueryOptions,

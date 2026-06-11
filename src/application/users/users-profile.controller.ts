@@ -8,8 +8,8 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { UsersProfileService } from './users-profile.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { type RequestWithPassportUser } from 'src/auth/jwt.strategy';
+import { JwtAuthGuard } from 'src/application/auth/jwt-auth.guard';
+import { type RequestWithPassportUser } from 'src/application/auth/jwt.strategy';
 import { UpdateUserDto } from './users.dto';
 
 @Controller('users/me/profile')

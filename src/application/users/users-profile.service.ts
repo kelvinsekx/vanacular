@@ -5,7 +5,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { LanguagesService } from 'src/languages/languages.service';
+import { LanguagesService } from 'src/application/languages/languages.service';
 import { ClassRepository } from 'src/core/common/classes.repository';
 import { UpdateUserDto } from './users.dto';
 import { removeUndefinedProps } from 'src/core/utils/uti';

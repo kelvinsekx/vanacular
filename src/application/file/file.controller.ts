@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { R2Service } from 'src/core/r2.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/infra/database/prisma.service';
 import { FileCreateDto } from './file.dto';
 
 @Controller('file')
