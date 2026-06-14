@@ -31,6 +31,24 @@ export class ClassRepository {
     });
   }
 
+  async canUserSendMessage({
+    classId,
+    userId,
+  }: {
+    classId: string;
+    userId: string;
+  }) {
+    return this.prisma.membership.findFirst({
+      where: {
+        class: {
+          id: classId,
+        },
+        user: {
+          id: userId,
+        },
+      },
+    });
+  }
   async getUserClass(userId: string) {
     const membership = await this.prisma.membership.findFirst({
       where: {
@@ -49,5 +67,9 @@ export class ClassRepository {
       },
     });
     return membership?.class;
+  }
+
+  async findById(id: string) {
+    return await this.prisma.class.findUnique({ where: { id } });
   }
 }

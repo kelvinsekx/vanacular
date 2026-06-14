@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ForumService } from './forum.service';
-import { LanguageRepository } from '../common/language.repository';
 import { ForumController } from './forum.controller';
-import { ClassRepository } from '../common/classes.repository';
+import { LanguageRepository } from 'src/core/common/language.repository';
+import { ClassRepository } from 'src/core/common/classes.repository';
 
 @Module({
   controllers: [ForumController],

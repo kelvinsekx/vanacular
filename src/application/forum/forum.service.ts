@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateForumDto } from './dto/create-forum.dto';
 import { UpdateForumDto } from './dto/update-forum.dto';
 import { PrismaService } from 'src/infra/database/prisma.service';
-import { LanguageRepository } from '../common/language.repository';
-import { ClassRepository } from '../common/classes.repository';
+import { ClassRepository } from 'src/core/common/classes.repository';
+import { LanguageRepository } from 'src/core/common/language.repository';
 
 @Injectable()
 export class ForumService {

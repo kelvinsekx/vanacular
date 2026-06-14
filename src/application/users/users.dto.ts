@@ -18,6 +18,9 @@ export class CreateUserDto {
   @IsEmail()
   email: string;
 
+  @IsString()
+  username: string;
+
   @IsNumber()
   targetLanguage: number;
 

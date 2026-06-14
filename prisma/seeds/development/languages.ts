@@ -86,6 +86,7 @@ export async function seedAdmin(targetLanguageId: number) {
     email: process.env.ADMIN_EMAIL as string,
     password: process.env.ADMIN_PASSWORD as string,
     targetLanguageId,
+    username: 'sekx',
   };
 
   await prisma.user.upsert({
@@ -100,6 +101,7 @@ export async function seedAdmin(targetLanguageId: number) {
     },
     create: {
       email: ADMIN_USER.email,
+      username: ADMIN_USER.username,
       password: await bcrypt.hash(
         ADMIN_USER.password,
         Number(process.env.AUTH_SALT),

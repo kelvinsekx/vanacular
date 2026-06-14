@@ -1,6 +1,6 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { type Request } from 'express';
 import { jwtConstants } from './constants';
 
@@ -23,6 +23,7 @@ export interface RequestWithPassportUser extends Request {
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
+  private logger = new Logger();
   constructor(@InjectRedis() private readonly redis: Redis) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -41,6 +42,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   ): Promise<RequestWithPassportUser['user']> {
     const blacklisted = await this.redis.exists(`jwt:${payload.jti}`);
     if (blacklisted === 1) {
+      this.logger.debug(
+        `[validate (JwtStrategy)] - user access token is blacklisted from previous log out operation.`,
+      );
       throw new UnauthorizedException();
     }
 

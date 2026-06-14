@@ -40,7 +40,7 @@ export class SenderDto {
   id: string;
 
   @IsString()
-  displayName: string;
+  username: string;
 
   @IsString()
   nativeLanguage: string;
@@ -65,17 +65,17 @@ export class LanguageCorrectDto {
 
 export class MessageResponseDto {
   @IsString()
-  forumId: string;
+  classId: string;
 
   @ValidateNested()
   @Type(() => SenderDto)
   sender?: SenderDto;
 
   @IsString()
-  authorId: string;
+  content: string;
 
   @IsString()
-  content: string;
+  contentId: string;
 
   @IsEnum(MessageType)
   type: MessageType;
@@ -91,21 +91,21 @@ export class MessageResponseDto {
   corrections?: LanguageCorrectDto[];
 
   static fromDomain(
-    message: Pick<MessageResponseDto, 'forumId' | 'content' | 'authorId'> & {
+    message: Pick<MessageResponseDto, 'classId' | 'content'> & {
       id: string;
       createdAt: Date;
     },
     user: User,
   ) {
     const dto = new MessageResponseDto();
-
-    dto.forumId = message.forumId;
+    dto.contentId = message.id;
+    dto.classId = message.classId;
     dto.content = message.content;
     dto.sender = {
       id: user.id,
       nativeLanguage: user.nativeLanguage ?? '',
       learningLanguage: user.targetLanguageId ?? 0,
-      displayName: user.firstName ?? '',
+      username: user.username ?? '',
     };
 
     return dto;

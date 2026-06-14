@@ -6,7 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { ClassRepository } from './core/common/classes.repository';
-import { ForumModule } from './core/forum/forum.module';
+
 import { LanguageRepository } from './core/common/language.repository';
 
 import { PrismaModule } from './infra/database/prisma.service';
@@ -22,11 +22,14 @@ import { jwtConstants } from './application/auth/constants';
 import { AuthModule } from './application/auth/auth.module';
 import { UsersModule } from './application/users/users.module';
 import { AuthService } from './application/auth/auth.service';
+import { ChatWsGateway } from './ws/gateways/chat-ws.gateway';
+import { ForumModule } from './application/forum/forum.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({}),
     JwtModule.register({
+      global: true,
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '8h' },
     }),
@@ -47,6 +50,7 @@ import { AuthService } from './application/auth/auth.service';
     ClassRepository,
     LanguagesService,
     LanguageRepository,
+    ChatWsGateway,
   ],
 })
 export class AppModule {}

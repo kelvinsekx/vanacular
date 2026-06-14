@@ -1,17 +1,18 @@
 import {
   Injectable,
   UnauthorizedException,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { ForumRepository } from 'src/core/common/forum.repository';
 import { UsersService } from 'src/application/users/users.service';
+import { ClassRepository } from 'src/core/common/classes.repository';
 import {
   MessageRepository,
   type QueryOptions,
 } from 'src/core/messages.repository';
 
 export interface GetMessagesCommand {
-  forumId: string;
+  classId: string;
   userId: string;
   take: number;
 }
@@ -36,60 +37,70 @@ interface PaginationMetadata {
 
 @Injectable()
 export class GetMessagesUseCase {
-  //  private readonly logger = new Logger(GetMessagesUseCase.name);
+  private logger = new Logger(GetMessagesUseCase.name);
 
   constructor(
-    private readonly forumRepo: ForumRepository,
+    private readonly classRepo: ClassRepository,
     private readonly userRepo: UsersService,
     private readonly messageRepo: MessageRepository,
   ) {}
 
   async exec(c: GetMessagesCommand) {
-    // const startTime = Date.now();
+    const startTime = Date.now();
+    const methodName = 'exec-GetMessages';
 
-    const [forum, user] = await Promise.all([
-      this.forumRepo.findById(c.forumId),
+    const [classforum, user] = await Promise.all([
+      this.classRepo.findById(c.classId),
       this.userRepo.findOneById(c.userId),
     ]);
 
-    if (!forum)
+    if (!classforum) {
+      this.logger.debug(
+        `[${methodName}] - can not fetch messages from class that do not exist`,
+      );
       throw new NotFoundException({
         message: 'This is not a valid Forum to fetch chats',
         field: 'C GetMessagesUseCase P exec',
       });
+    }
 
-    if (!user)
+    if (!user) {
       throw new UnauthorizedException({
         message: 'You are not authenticated to get chats in this forum',
         field: 'C GetMessagesUseCase P exec',
       });
+    }
 
-    const canParticipate = await this.forumRepo.canUserSendMessage({
-      forumId: c.forumId,
+    const canParticipate = await this.classRepo.canUserSendMessage({
+      classId: c.classId,
       userId: c.userId,
     });
 
-    if (!canParticipate)
+    if (!canParticipate) {
+      this.logger.debug(
+        `[${methodName}] - user is not permitted in this forum chats`,
+      );
       throw new UnauthorizedException('User is not a member of this room');
+    }
+    const MessageResult = await this.fetchMessagesWithPagination(c.classId);
 
-    const MessageResult = await this.fetchMessagesWithPagination(c.forumId);
-
+    this.logger.log(
+      `[${methodName}] - successfully fetched messages in room (${c.classId}) & took ${Date.now() - startTime}ms`,
+    );
     return MessageResult;
   }
 
   private async fetchMessagesWithPagination(
-    forumId: string,
+    classId: string,
     params?: QueryOptions,
   ) {
-    // const startTime = Date.now();
-
     const queryOptions = {
       take: params?.take || 10,
       cursor: params?.cursor || null,
     };
 
     const { total, hasMore, nextCursor, data } =
-      await this.messageRepo.findByForumId(forumId, queryOptions);
+      await this.messageRepo.findByClass(classId, queryOptions);
 
     return {
       data,
