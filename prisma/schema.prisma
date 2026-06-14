@@ -67,8 +67,8 @@ model User {
   password          String
   bio               String?           @db.VarChar(160)
   avatarUrl         String?
-  firstName         String?
-  lastName          String?
+  username          String            @unique
+  displayName       String?
   phone             String?           @unique
   learningObjective LearningObjective @default(CASUAL)
   nativeLanguage    String?
@@ -82,7 +82,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  posts            Post[]
+  chats            Chat[]
   activityProgress UserActivityProgress[]
 }
 
@@ -271,16 +271,15 @@ model Forum {
   languageId Int
   language   TargetLanguage @relation(fields: [languageId], references: [id])
   classes    Class[]
-  posts      Post[]
 }
 
-model Post {
+model Chat {
   id       String @id @default(uuid())
   content  String
   authorId String
   author   User   @relation(fields: [authorId], references: [id])
-  forumId  String
-  forum    Forum  @relation(fields: [forumId], references: [id])
+  classId  String
+  class    Class  @relation(fields: [classId], references: [id])
 
   createdAt DateTime @default(now())
   ratings   Rating[]
@@ -289,8 +288,8 @@ model Post {
 model Rating {
   id String @id @default(uuid())
 
-  postId String
-  post   Post   @relation(fields: [postId], references: [id])
+  chatId String
+  chat   Chat   @relation(fields: [chatId], references: [id])
 
   giverId String
   giver   User   @relation("RatingGiver", fields: [giverId], references: [id])
@@ -308,8 +307,9 @@ model Class {
   level       Int
   name        String
   minPoints   Int
-  forumId     String   
+  forumId     String
   forum       Forum        @relation(fields: [forumId], references: [id])
   memberships Membership[]
   lessons     Lesson[]
+  chats       Chat[]
 }

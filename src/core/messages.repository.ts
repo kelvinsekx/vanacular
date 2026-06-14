@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
-import { type SendMessageCommand } from 'src/message/message.service';
+import { PrismaService } from 'src/infra/database/prisma.service';
+import { type SendMessageCommand } from 'src/application/message/message.service';
 
 export interface QueryOptions {
   take: number;
@@ -11,15 +11,26 @@ export interface QueryOptions {
 export class MessageRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findByForumId(forumId: string, queryOptions: QueryOptions) {
-    const messages = await this.prisma.post.findMany({
-      where: { forumId },
+  async findByClass(classId: string, queryOptions: QueryOptions) {
+    const messages = await this.prisma.chat.findMany({
+      where: { classId },
+      select: {
+        id: true,
+        content: true,
+        author: {
+          select: {
+            username: true,
+            id: true,
+          },
+        },
+        createdAt: true,
+      },
       take: queryOptions.take + 1,
       ...(queryOptions.cursor && {
         cursor: { id: queryOptions.cursor },
         skip: 1,
       }),
-      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+      orderBy: [{ createdAt: 'desc' }],
     });
 
     let hasMore = false,
@@ -31,10 +42,10 @@ export class MessageRepository {
       nextCursor = nextItem!.id;
     }
 
-    const total = await this.prisma.post.count({ where: { forumId } });
+    const total = await this.prisma.chat.count({ where: { classId } });
 
     return {
-      data: messages,
+      data: messages.reverse(),
       total,
       hasMore,
       nextCursor,
@@ -42,12 +53,12 @@ export class MessageRepository {
   }
 
   async createMessage(
-    c: Pick<SendMessageCommand, 'content' | 'forumId' | 'userId'>,
+    c: Pick<SendMessageCommand, 'content' | 'classId' | 'userId'>,
   ) {
-    return this.prisma.post.create({
+    return await this.prisma.chat.create({
       data: {
         content: c.content,
-        forumId: c.forumId,
+        classId: c.classId,
         authorId: c.userId,
       },
     });
