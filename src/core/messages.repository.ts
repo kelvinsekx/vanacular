@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { SendMessageCommand } from 'src/application/message/use-cases/send-message.use-case';
 import { PrismaService } from 'src/infra/database/prisma.service';
-import { type SendMessageCommand } from 'src/application/message/message.service';
+import { FetchMessageSelect } from './utils/prisma/selects';
 
 export interface QueryOptions {
   take: number;
@@ -14,17 +15,7 @@ export class MessageRepository {
   async findByClass(classId: string, queryOptions: QueryOptions) {
     const messages = await this.prisma.chat.findMany({
       where: { classId },
-      select: {
-        id: true,
-        content: true,
-        author: {
-          select: {
-            username: true,
-            id: true,
-          },
-        },
-        createdAt: true,
-      },
+      select: FetchMessageSelect,
       take: queryOptions.take + 1,
       ...(queryOptions.cursor && {
         cursor: { id: queryOptions.cursor },

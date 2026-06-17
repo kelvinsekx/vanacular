@@ -84,6 +84,7 @@ model User {
 
   chats            Chat[]
   activityProgress UserActivityProgress[]
+  responses        Response[]
 }
 
 model UserActivityProgress {
@@ -108,12 +109,12 @@ model UserActivityProgress {
 model Lesson {
   id    String @id @default(uuid(7))
   title String
-  order Int
 
-  lessonClassId String @default("7d98c187-ba47-49fe-9ec0-dca9189f3b90")
-  lessonClass   Class  @relation(fields: [lessonClassId], references: [id])
+  classAssignments ClassLessonAssignment[]
+  activities       Activity[]
 
-  activities Activity[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Activity {
@@ -281,8 +282,9 @@ model Chat {
   classId  String
   class    Class  @relation(fields: [classId], references: [id])
 
-  createdAt DateTime @default(now())
+  createdAt DateTime   @default(now())
   ratings   Rating[]
+  responses Response[]
 }
 
 model Rating {
@@ -310,6 +312,47 @@ model Class {
   forumId     String
   forum       Forum        @relation(fields: [forumId], references: [id])
   memberships Membership[]
-  lessons     Lesson[]
-  chats       Chat[]
+
+  lessonAssignments ClassLessonAssignment[]
+  chats             Chat[]
+}
+
+model ClassLessonAssignment {
+  id       String @id @default(uuid(7))
+  classId  String
+  lessonId String
+  order    Int // Order of this lesson within the specific class
+
+  class  Class  @relation(fields: [classId], references: [id])
+  lesson Lesson @relation(fields: [lessonId], references: [id])
+
+  @@unique([classId, lessonId])
+}
+
+model Response {
+  id        String @id @default(uuid(7))
+  content   String
+  chatId    String
+  userId    String
+  voteCount Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  chat   Chat @relation(fields: [chatId], references: [id])
+  sender User @relation(fields: [userId], references: [id])
+
+  votes Vote[]
+
+  @@index(chatId)
+}
+
+model Vote {
+  id         String   @id @default(uuid())
+  userId     String
+  responseId String
+  createAt   DateTime @default(now())
+  response   Response @relation(fields: [responseId], references: [id])
+
+  @@unique([userId, responseId])
 }

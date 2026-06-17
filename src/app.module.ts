@@ -6,7 +6,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { ClassRepository } from './core/common/classes.repository';
-
 import { LanguageRepository } from './core/common/language.repository';
 
 import { PrismaModule } from './infra/database/prisma.service';
@@ -24,6 +23,8 @@ import { UsersModule } from './application/users/users.module';
 import { AuthService } from './application/auth/auth.service';
 import { ChatWsGateway } from './ws/gateways/chat-ws.gateway';
 import { ForumModule } from './application/forum/forum.module';
+import { ForumClassesController } from './application/classes/forum-classes.controller';
+import { ResponsesModule } from './application/responses/responses.module';
 
 @Module({
   imports: [
@@ -42,8 +43,9 @@ import { ForumModule } from './application/forum/forum.module';
     LessonsModule,
     ActivitiesModule,
     FileModule,
+    ResponsesModule,
   ],
-  controllers: [AppController, LanguagesController],
+  controllers: [AppController, LanguagesController, ForumClassesController],
   providers: [
     AppService,
     AuthService,

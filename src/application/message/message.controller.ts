@@ -24,7 +24,6 @@ export class MessageController {
   constructor(
     private readonly messageService: MessageService,
     private readonly chatWsGateway: ChatWsGateway,
-    private readonly prisma: PrismaService,
   ) {}
 
   @Post()
@@ -71,19 +70,6 @@ export class MessageController {
     @Param('classId') classId: string,
     @Param('chatId') chatId: string,
   ) {
-    return await this.prisma.chat.findFirst({
-      where: { classId, id: chatId },
-      select: {
-        id: true,
-        content: true,
-        author: {
-          select: {
-            username: true,
-            id: true,
-          },
-        },
-        createdAt: true,
-      },
-    });
+    return await this.messageService.getMessage(classId, chatId);
   }
 }

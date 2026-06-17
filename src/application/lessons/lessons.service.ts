@@ -6,38 +6,44 @@ import {
 import { CreateLessonDto } from './dto/create-lesson.dto';
 import { UpdateLessonDto } from './dto/update-lesson.dto';
 import { PrismaService } from 'src/infra/database/prisma.service';
-import { type Lesson, type Activity } from 'src/generated/prisma/client';
+import { type Activity } from 'src/generated/prisma/client';
 
 @Injectable()
 export class LessonsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(classId: string, createLessonDto: CreateLessonDto) {
+  async createLesson(createLessonDto: CreateLessonDto) {
     return await this.prisma.lesson.create({
       data: {
         title: createLessonDto.title,
-        order: createLessonDto.order,
-        lessonClassId: classId,
       },
     });
   }
 
-  async findAll(forumId: string) {
+  async findAllLesson(forumId: string) {
     return await this.prisma.lesson.findMany({
       where: {
-        lessonClass: {
-          forumId,
+        classAssignments: {
+          every: {
+            class: {
+              forumId,
+            },
+          },
         },
       },
       select: {
         id: true,
         title: true,
-        order: true,
-        lessonClass: {
+        classAssignments: {
           include: {
-            forum: {
+            class: {
               select: {
                 name: true,
+                forum: {
+                  select: {
+                    name: true,
+                  },
+                },
               },
             },
           },
@@ -55,20 +61,24 @@ export class LessonsService {
     });
   }
 
-  async findOne(lessonId: string) {
+  async findOneLesson(lessonId: string) {
     const lesson = await this.prisma.lesson.findUnique({
       where: { id: lessonId },
       include: {
-        lessonClass: {
+        classAssignments: {
           include: {
-            forum: {
-              select: {
-                id: true,
-                name: true,
-                classes: {
+            class: {
+              include: {
+                forum: {
                   select: {
                     id: true,
                     name: true,
+                    classes: {
+                      select: {
+                        id: true,
+                        name: true,
+                      },
+                    },
                   },
                 },
               },
@@ -108,7 +118,6 @@ export class LessonsService {
       where: { id: lessonId },
       data: {
         title: dto.title,
-        order: dto.order,
       },
       select: {
         id: true,
@@ -123,7 +132,6 @@ export class LessonsService {
       select: {
         id: true,
         title: true,
-        order: true,
       },
     });
 
@@ -167,10 +175,11 @@ export class LessonsService {
 
     const lessons = await this.prisma.lesson.findMany({
       where: {
-        lessonClassId: classId,
-      },
-      orderBy: {
-        order: 'asc',
+        classAssignments: {
+          every: {
+            classId,
+          },
+        },
       },
       include: {
         activities: {
@@ -204,7 +213,6 @@ export class LessonsService {
       completedActivities.map((ca) => ca.activityId),
     );
 
-    // Track which lessons are fully completed
     let currentLesson: any | null = null;
     let currentActivity: Activity | null = null;
     let completedActivitiesInLesson = 0;

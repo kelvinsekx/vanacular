@@ -30,8 +30,8 @@ export class LessonsController {
 
   @UseGuards(ForumAccessGuard)
   @Post()
-  create(@Body() createLessonDto: CreateLessonDto, @Req() req: ForumRequest) {
-    return this.lessonsService.create(req.forum.id, createLessonDto);
+  create(@Body() createLessonDto: CreateLessonDto) {
+    return this.lessonsService.createLesson(createLessonDto);
   }
 
   @Post('/:lessonId/multi-choice')
@@ -75,12 +75,12 @@ export class LessonsController {
   @UseGuards(ForumAccessGuard)
   @Get()
   findAll(@Req() req: ForumRequest) {
-    return this.lessonsService.findAll(req.forum.id);
+    return this.lessonsService.findAllLesson(req.forum.id);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string, @Req() req: ForumRequest) {
-    return this.lessonsService.findOne(req.forum.id);
+    return this.lessonsService.findOneLesson(req.forum.id);
   }
 
   @Patch(':lessonId')

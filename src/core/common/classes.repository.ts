@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/infra/database/prisma.service';
+import { classSelect } from '../utils/prisma/selects';
 
 @Injectable()
 export class ClassRepository {
@@ -9,18 +10,7 @@ export class ClassRepository {
     return {
       data: await this.prisma.class.findMany({
         take: 15,
-        select: {
-          id: true,
-          name: true,
-          level: true,
-          minPoints: true,
-          forum: {
-            select: {
-              name: true,
-              id: true,
-            },
-          },
-        },
+        select: classSelect,
       }),
     };
   }
@@ -69,7 +59,10 @@ export class ClassRepository {
     return membership?.class;
   }
 
-  async findById(id: string) {
-    return await this.prisma.class.findUnique({ where: { id } });
+  async findOneById(id: string) {
+    return await this.prisma.class.findUnique({
+      where: { id },
+      select: classSelect,
+    });
   }
 }

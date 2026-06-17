@@ -9,6 +9,11 @@ import { RedisModule as RdModule } from '@nestjs-modules/ioredis';
       onClientReady: (client) => {
         client.on('error', (err) => console.log('Redis error:', err));
       },
+      options: {
+        retryStrategy(times) {
+          Math.min(times * 50, 2000);
+        },
+      },
     }),
   ],
 })

@@ -17,24 +17,6 @@ export interface GetMessagesCommand {
   take: number;
 }
 
-/**
-export interface GetMessagesResult {
-  messages: Message[];
-  forum: Forum;
-  pagination: PaginationMetadata;
-  userContext: UserMessageContext;
-}
-*/
-
-/**
-interface PaginationMetadata {
-  total: number;
-  limit: number;
-  nextCursor?: Date;
-  hasMore: boolean;
-}
-*/
-
 @Injectable()
 export class GetMessagesUseCase {
   private logger = new Logger(GetMessagesUseCase.name);
@@ -50,7 +32,7 @@ export class GetMessagesUseCase {
     const methodName = 'exec-GetMessages';
 
     const [classforum, user] = await Promise.all([
-      this.classRepo.findById(c.classId),
+      this.classRepo.findOneById(c.classId),
       this.userRepo.findOneById(c.userId),
     ]);
 
