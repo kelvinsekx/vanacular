@@ -17,7 +17,6 @@ import { type User } from './../src/generated/prisma/client';
 
 import { CreateUserDto } from './application/users/users.dto';
 import { type RequestWithPassportUser } from './application/auth/jwt.strategy';
-import { ClassRepository } from './core/common/classes.repository';
 
 @Controller()
 export class AppController {
@@ -25,7 +24,6 @@ export class AppController {
     @InjectRedis() private readonly redis: Redis,
     private readonly appService: AppService,
     private authService: AuthService,
-    private readonly classRepo: ClassRepository,
   ) {}
 
   @Get()
@@ -70,10 +68,5 @@ export class AppController {
       expiry: req.user.expiry,
     });
     return { message: 'Logged out successfully' };
-  }
-
-  @Get('/get-classes')
-  async getAllClasses() {
-    return this.classRepo.getAllClasses();
   }
 }
