@@ -52,7 +52,11 @@ export class LessonsService {
           include: {
             multiChoice: {
               include: {
-                options: true,
+                questions: {
+                  include: {
+                    options: true,
+                  },
+                },
               },
             },
           },
@@ -145,11 +149,15 @@ export class LessonsService {
       include: {
         multiChoice: {
           include: {
-            options: {
-              orderBy: { position: 'asc' },
-            },
-            hints: {
-              orderBy: { order: 'asc' },
+            questions: {
+              include: {
+                options: {
+                  orderBy: { position: 'asc' },
+                },
+                hints: {
+                  orderBy: { order: 'asc' },
+                },
+              },
             },
           },
         },

@@ -1,0 +1,82 @@
+{
+  "title": "Consonants & Vowels",
+  "activities": [
+    {
+      "type": "MULTI_CHOICE",
+      "title": "Oral Vowels Quiz",
+      "order": 1,
+      "questions": [
+        {
+          "prompt": "Which of the following are oral vowels pronounced from the heart?",
+          "explanation": "Oral vowels in Yoruba are: a e ẹ i o ọ u",
+          "options": [
+            { "text": "a", "isCorrect": true },
+            { "text": "an" },
+            { "text": "ẹn" },
+            { "text": "ọn" }
+          ]
+        },
+        {
+          "prompt": "How many oral vowels are there?",
+          "explanation": "There are 7 oral vowels in Yoruba.",
+          "options": [
+            { "text": "5" },
+            { "text": "6" },
+            { "text": "7", "isCorrect": true },
+            { "text": "12" }
+          ]
+        },
+        {
+          "prompt": "Which set contains ONLY oral vowels?",
+          "options": [
+            { "text": "a e ẹ i o ọ u", "isCorrect": true },
+            { "text": "an ẹn in ọn un" },
+            { "text": "a e i o u" },
+            { "text": "gb sh ch th" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "MULTI_CHOICE",
+      "title": "Nasal Vowels Quiz",
+      "order": 2,
+      "questions": [
+        {
+          "prompt": "Which of the following are nasal vowels?",
+          "explanation": "Nasal vowels are: an, ẹn, in, ọn, un",
+          "options": [
+            { "text": "an", "isCorrect": true },
+            { "text": "a" },
+            { "text": "e" },
+            { "text": "i" }
+          ]
+        },
+        {
+          "prompt": "Which group contains nasal vowels?",
+          "options": [
+            { "text": "an ẹn in ọn un", "isCorrect": true },
+            { "text": "a e ẹ i o ọ u" },
+            { "text": "ba be bi bo bu" },
+            { "text": "ka ke ki ko ku" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "STORY",
+      "title": "Vocabulary Terms",
+      "order": 3,
+      "pages": [
+        {
+          "order": 1,
+          "content": "Vowels are called faweli."
+        },
+        {
+          "order": 2,
+          "content": "Consonants are called konsonanti."
+        }
+      ]
+    }
+  ]
+}

@@ -1,16 +1,17 @@
-import { PrismaClient } from './../../src/generated/prisma/client';
 import {
   seedLanguages,
   seedAdmin,
   seedForumWithAtLeastOneClass,
 } from './development/languages';
-import { PrismaPg } from '@prisma/adapter-pg';
+import {
+  seedLessonsAndActivities,
+  clearClassLessons,
+} from './development/class-n-lessons';
 
 import 'dotenv/config';
+import { prisma } from './prismaClient';
 
-const prisma = new PrismaClient({
-  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
-});
+const allowedEnvironments = ['development', 'test'];
 
 async function main() {
   console.log('Start seeding...');
@@ -20,7 +21,8 @@ async function main() {
   await seedAdmin(seededLangs[0].id);
   console.log('✅ successfully seeded admins');
   await seedForumWithAtLeastOneClass(seededLangs);
-  console.log('✅ successfully seeded forum with two classes');
+  console.log('✅ successfully seeded forums');
+  await seedLessonsAndActivities();
 
   console.log(`Seeding finished`);
 }

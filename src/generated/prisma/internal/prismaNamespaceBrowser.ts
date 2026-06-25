@@ -57,6 +57,7 @@ export const ModelName = {
   Activity: 'Activity',
   Asset: 'Asset',
   MultiChoiceActivity: 'MultiChoiceActivity',
+  MultiChoiceActivityQuestion: 'MultiChoiceActivityQuestion',
   MultipleChoiceOption: 'MultipleChoiceOption',
   StoryActivity: 'StoryActivity',
   StoryPage: 'StoryPage',
@@ -169,23 +170,33 @@ export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof As
 
 export const MultiChoiceActivityScalarFieldEnum = {
   id: 'id',
-  activityId: 'activityId',
-  prompt: 'prompt',
-  explanation: 'explanation',
-  shuffle: 'shuffle'
+  shuffle: 'shuffle',
+  activityId: 'activityId'
 } as const
 
 export type MultiChoiceActivityScalarFieldEnum = (typeof MultiChoiceActivityScalarFieldEnum)[keyof typeof MultiChoiceActivityScalarFieldEnum]
 
 
+export const MultiChoiceActivityQuestionScalarFieldEnum = {
+  id: 'id',
+  prompt: 'prompt',
+  explanation: 'explanation',
+  assetName: 'assetName',
+  points: 'points',
+  multiChoiceActivityId: 'multiChoiceActivityId'
+} as const
+
+export type MultiChoiceActivityQuestionScalarFieldEnum = (typeof MultiChoiceActivityQuestionScalarFieldEnum)[keyof typeof MultiChoiceActivityQuestionScalarFieldEnum]
+
+
 export const MultipleChoiceOptionScalarFieldEnum = {
   id: 'id',
-  activityId: 'activityId',
+  questionId: 'questionId',
   text: 'text',
+  assetName: 'assetName',
   alt: 'alt',
   isCorrect: 'isCorrect',
-  position: 'position',
-  assetId: 'assetId'
+  position: 'position'
 } as const
 
 export type MultipleChoiceOptionScalarFieldEnum = (typeof MultipleChoiceOptionScalarFieldEnum)[keyof typeof MultipleChoiceOptionScalarFieldEnum]
@@ -203,9 +214,9 @@ export type StoryActivityScalarFieldEnum = (typeof StoryActivityScalarFieldEnum)
 export const StoryPageScalarFieldEnum = {
   id: 'id',
   storyId: 'storyId',
+  assetName: 'assetName',
   content: 'content',
-  order: 'order',
-  assetId: 'assetId'
+  order: 'order'
 } as const
 
 export type StoryPageScalarFieldEnum = (typeof StoryPageScalarFieldEnum)[keyof typeof StoryPageScalarFieldEnum]
@@ -223,7 +234,7 @@ export type RadioChoiceActivityScalarFieldEnum = (typeof RadioChoiceActivityScal
 
 export const HintScalarFieldEnum = {
   id: 'id',
-  activityId: 'activityId',
+  questionId: 'questionId',
   text: 'text',
   order: 'order',
   createdAt: 'createdAt'

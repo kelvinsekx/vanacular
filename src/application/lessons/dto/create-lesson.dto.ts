@@ -38,7 +38,7 @@ export class MultipleChoiceOptionDto {
 
   @IsOptional()
   @IsString()
-  assetId?: string;
+  assetName?: string;
 
   @IsOptional()
   @IsString()

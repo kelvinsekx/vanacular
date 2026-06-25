@@ -390,6 +390,7 @@ export const ModelName = {
   Activity: 'Activity',
   Asset: 'Asset',
   MultiChoiceActivity: 'MultiChoiceActivity',
+  MultiChoiceActivityQuestion: 'MultiChoiceActivityQuestion',
   MultipleChoiceOption: 'MultipleChoiceOption',
   StoryActivity: 'StoryActivity',
   StoryPage: 'StoryPage',
@@ -419,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userActivityProgress" | "lesson" | "activity" | "asset" | "multiChoiceActivity" | "multipleChoiceOption" | "storyActivity" | "storyPage" | "radioChoiceActivity" | "hint" | "targetLanguage" | "membership" | "forum" | "chat" | "rating" | "class" | "classLessonAssignment" | "response" | "vote"
+    modelProps: "user" | "userActivityProgress" | "lesson" | "activity" | "asset" | "multiChoiceActivity" | "multiChoiceActivityQuestion" | "multipleChoiceOption" | "storyActivity" | "storyPage" | "radioChoiceActivity" | "hint" | "targetLanguage" | "membership" | "forum" | "chat" | "rating" | "class" | "classLessonAssignment" | "response" | "vote"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -864,6 +865,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MultiChoiceActivityCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MultiChoiceActivityCountAggregateOutputType> | number
+        }
+      }
+    }
+    MultiChoiceActivityQuestion: {
+      payload: Prisma.$MultiChoiceActivityQuestionPayload<ExtArgs>
+      fields: Prisma.MultiChoiceActivityQuestionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MultiChoiceActivityQuestionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MultiChoiceActivityQuestionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload>
+        }
+        findFirst: {
+          args: Prisma.MultiChoiceActivityQuestionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MultiChoiceActivityQuestionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload>
+        }
+        findMany: {
+          args: Prisma.MultiChoiceActivityQuestionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload>[]
+        }
+        create: {
+          args: Prisma.MultiChoiceActivityQuestionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload>
+        }
+        createMany: {
+          args: Prisma.MultiChoiceActivityQuestionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MultiChoiceActivityQuestionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload>[]
+        }
+        delete: {
+          args: Prisma.MultiChoiceActivityQuestionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload>
+        }
+        update: {
+          args: Prisma.MultiChoiceActivityQuestionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload>
+        }
+        deleteMany: {
+          args: Prisma.MultiChoiceActivityQuestionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MultiChoiceActivityQuestionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MultiChoiceActivityQuestionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload>[]
+        }
+        upsert: {
+          args: Prisma.MultiChoiceActivityQuestionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MultiChoiceActivityQuestionPayload>
+        }
+        aggregate: {
+          args: Prisma.MultiChoiceActivityQuestionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMultiChoiceActivityQuestion>
+        }
+        groupBy: {
+          args: Prisma.MultiChoiceActivityQuestionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MultiChoiceActivityQuestionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MultiChoiceActivityQuestionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MultiChoiceActivityQuestionCountAggregateOutputType> | number
         }
       }
     }
@@ -2022,23 +2097,33 @@ export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof As
 
 export const MultiChoiceActivityScalarFieldEnum = {
   id: 'id',
-  activityId: 'activityId',
-  prompt: 'prompt',
-  explanation: 'explanation',
-  shuffle: 'shuffle'
+  shuffle: 'shuffle',
+  activityId: 'activityId'
 } as const
 
 export type MultiChoiceActivityScalarFieldEnum = (typeof MultiChoiceActivityScalarFieldEnum)[keyof typeof MultiChoiceActivityScalarFieldEnum]
 
 
+export const MultiChoiceActivityQuestionScalarFieldEnum = {
+  id: 'id',
+  prompt: 'prompt',
+  explanation: 'explanation',
+  assetName: 'assetName',
+  points: 'points',
+  multiChoiceActivityId: 'multiChoiceActivityId'
+} as const
+
+export type MultiChoiceActivityQuestionScalarFieldEnum = (typeof MultiChoiceActivityQuestionScalarFieldEnum)[keyof typeof MultiChoiceActivityQuestionScalarFieldEnum]
+
+
 export const MultipleChoiceOptionScalarFieldEnum = {
   id: 'id',
-  activityId: 'activityId',
+  questionId: 'questionId',
   text: 'text',
+  assetName: 'assetName',
   alt: 'alt',
   isCorrect: 'isCorrect',
-  position: 'position',
-  assetId: 'assetId'
+  position: 'position'
 } as const
 
 export type MultipleChoiceOptionScalarFieldEnum = (typeof MultipleChoiceOptionScalarFieldEnum)[keyof typeof MultipleChoiceOptionScalarFieldEnum]
@@ -2056,9 +2141,9 @@ export type StoryActivityScalarFieldEnum = (typeof StoryActivityScalarFieldEnum)
 export const StoryPageScalarFieldEnum = {
   id: 'id',
   storyId: 'storyId',
+  assetName: 'assetName',
   content: 'content',
-  order: 'order',
-  assetId: 'assetId'
+  order: 'order'
 } as const
 
 export type StoryPageScalarFieldEnum = (typeof StoryPageScalarFieldEnum)[keyof typeof StoryPageScalarFieldEnum]
@@ -2076,7 +2161,7 @@ export type RadioChoiceActivityScalarFieldEnum = (typeof RadioChoiceActivityScal
 
 export const HintScalarFieldEnum = {
   id: 'id',
-  activityId: 'activityId',
+  questionId: 'questionId',
   text: 'text',
   order: 'order',
   createdAt: 'createdAt'
@@ -2473,6 +2558,7 @@ export type GlobalOmitConfig = {
   activity?: Prisma.ActivityOmit
   asset?: Prisma.AssetOmit
   multiChoiceActivity?: Prisma.MultiChoiceActivityOmit
+  multiChoiceActivityQuestion?: Prisma.MultiChoiceActivityQuestionOmit
   multipleChoiceOption?: Prisma.MultipleChoiceOptionOmit
   storyActivity?: Prisma.StoryActivityOmit
   storyPage?: Prisma.StoryPageOmit

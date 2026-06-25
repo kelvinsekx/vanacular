@@ -37,25 +37,25 @@ export type StoryPageSumAggregateOutputType = {
 export type StoryPageMinAggregateOutputType = {
   id: string | null
   storyId: string | null
+  assetName: string | null
   content: string | null
   order: number | null
-  assetId: string | null
 }
 
 export type StoryPageMaxAggregateOutputType = {
   id: string | null
   storyId: string | null
+  assetName: string | null
   content: string | null
   order: number | null
-  assetId: string | null
 }
 
 export type StoryPageCountAggregateOutputType = {
   id: number
   storyId: number
+  assetName: number
   content: number
   order: number
-  assetId: number
   _all: number
 }
 
@@ -71,25 +71,25 @@ export type StoryPageSumAggregateInputType = {
 export type StoryPageMinAggregateInputType = {
   id?: true
   storyId?: true
+  assetName?: true
   content?: true
   order?: true
-  assetId?: true
 }
 
 export type StoryPageMaxAggregateInputType = {
   id?: true
   storyId?: true
+  assetName?: true
   content?: true
   order?: true
-  assetId?: true
 }
 
 export type StoryPageCountAggregateInputType = {
   id?: true
   storyId?: true
+  assetName?: true
   content?: true
   order?: true
-  assetId?: true
   _all?: true
 }
 
@@ -182,9 +182,9 @@ export type StoryPageGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type StoryPageGroupByOutputType = {
   id: string
   storyId: string
+  assetName: string | null
   content: string
   order: number
-  assetId: string
   _count: StoryPageCountAggregateOutputType | null
   _avg: StoryPageAvgAggregateOutputType | null
   _sum: StoryPageSumAggregateOutputType | null
@@ -213,20 +213,18 @@ export type StoryPageWhereInput = {
   NOT?: Prisma.StoryPageWhereInput | Prisma.StoryPageWhereInput[]
   id?: Prisma.StringFilter<"StoryPage"> | string
   storyId?: Prisma.StringFilter<"StoryPage"> | string
+  assetName?: Prisma.StringNullableFilter<"StoryPage"> | string | null
   content?: Prisma.StringFilter<"StoryPage"> | string
   order?: Prisma.IntFilter<"StoryPage"> | number
-  assetId?: Prisma.StringFilter<"StoryPage"> | string
-  asset?: Prisma.XOR<Prisma.AssetScalarRelationFilter, Prisma.AssetWhereInput>
   story?: Prisma.XOR<Prisma.StoryActivityScalarRelationFilter, Prisma.StoryActivityWhereInput>
 }
 
 export type StoryPageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   storyId?: Prisma.SortOrder
+  assetName?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  assetId?: Prisma.SortOrder
-  asset?: Prisma.AssetOrderByWithRelationInput
   story?: Prisma.StoryActivityOrderByWithRelationInput
 }
 
@@ -236,19 +234,18 @@ export type StoryPageWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.StoryPageWhereInput[]
   NOT?: Prisma.StoryPageWhereInput | Prisma.StoryPageWhereInput[]
   storyId?: Prisma.StringFilter<"StoryPage"> | string
+  assetName?: Prisma.StringNullableFilter<"StoryPage"> | string | null
   content?: Prisma.StringFilter<"StoryPage"> | string
   order?: Prisma.IntFilter<"StoryPage"> | number
-  assetId?: Prisma.StringFilter<"StoryPage"> | string
-  asset?: Prisma.XOR<Prisma.AssetScalarRelationFilter, Prisma.AssetWhereInput>
   story?: Prisma.XOR<Prisma.StoryActivityScalarRelationFilter, Prisma.StoryActivityWhereInput>
 }, "id">
 
 export type StoryPageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   storyId?: Prisma.SortOrder
+  assetName?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  assetId?: Prisma.SortOrder
   _count?: Prisma.StoryPageCountOrderByAggregateInput
   _avg?: Prisma.StoryPageAvgOrderByAggregateInput
   _max?: Prisma.StoryPageMaxOrderByAggregateInput
@@ -262,53 +259,54 @@ export type StoryPageScalarWhereWithAggregatesInput = {
   NOT?: Prisma.StoryPageScalarWhereWithAggregatesInput | Prisma.StoryPageScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"StoryPage"> | string
   storyId?: Prisma.StringWithAggregatesFilter<"StoryPage"> | string
+  assetName?: Prisma.StringNullableWithAggregatesFilter<"StoryPage"> | string | null
   content?: Prisma.StringWithAggregatesFilter<"StoryPage"> | string
   order?: Prisma.IntWithAggregatesFilter<"StoryPage"> | number
-  assetId?: Prisma.StringWithAggregatesFilter<"StoryPage"> | string
 }
 
 export type StoryPageCreateInput = {
   id?: string
+  assetName?: string | null
   content: string
   order: number
-  asset: Prisma.AssetCreateNestedOneWithoutStoryPagesInput
   story: Prisma.StoryActivityCreateNestedOneWithoutPagesInput
 }
 
 export type StoryPageUncheckedCreateInput = {
   id?: string
   storyId: string
+  assetName?: string | null
   content: string
   order: number
-  assetId: string
 }
 
 export type StoryPageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  assetName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  asset?: Prisma.AssetUpdateOneRequiredWithoutStoryPagesNestedInput
   story?: Prisma.StoryActivityUpdateOneRequiredWithoutPagesNestedInput
 }
 
 export type StoryPageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   storyId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  assetId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StoryPageCreateManyInput = {
   id?: string
   storyId: string
+  assetName?: string | null
   content: string
   order: number
-  assetId: string
 }
 
 export type StoryPageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  assetName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -316,9 +314,9 @@ export type StoryPageUpdateManyMutationInput = {
 export type StoryPageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   storyId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  assetId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StoryPageListRelationFilter = {
@@ -334,9 +332,9 @@ export type StoryPageOrderByRelationAggregateInput = {
 export type StoryPageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   storyId?: Prisma.SortOrder
+  assetName?: Prisma.SortOrder
   content?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  assetId?: Prisma.SortOrder
 }
 
 export type StoryPageAvgOrderByAggregateInput = {
@@ -346,63 +344,21 @@ export type StoryPageAvgOrderByAggregateInput = {
 export type StoryPageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   storyId?: Prisma.SortOrder
+  assetName?: Prisma.SortOrder
   content?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  assetId?: Prisma.SortOrder
 }
 
 export type StoryPageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   storyId?: Prisma.SortOrder
+  assetName?: Prisma.SortOrder
   content?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  assetId?: Prisma.SortOrder
 }
 
 export type StoryPageSumOrderByAggregateInput = {
   order?: Prisma.SortOrder
-}
-
-export type StoryPageCreateNestedManyWithoutAssetInput = {
-  create?: Prisma.XOR<Prisma.StoryPageCreateWithoutAssetInput, Prisma.StoryPageUncheckedCreateWithoutAssetInput> | Prisma.StoryPageCreateWithoutAssetInput[] | Prisma.StoryPageUncheckedCreateWithoutAssetInput[]
-  connectOrCreate?: Prisma.StoryPageCreateOrConnectWithoutAssetInput | Prisma.StoryPageCreateOrConnectWithoutAssetInput[]
-  createMany?: Prisma.StoryPageCreateManyAssetInputEnvelope
-  connect?: Prisma.StoryPageWhereUniqueInput | Prisma.StoryPageWhereUniqueInput[]
-}
-
-export type StoryPageUncheckedCreateNestedManyWithoutAssetInput = {
-  create?: Prisma.XOR<Prisma.StoryPageCreateWithoutAssetInput, Prisma.StoryPageUncheckedCreateWithoutAssetInput> | Prisma.StoryPageCreateWithoutAssetInput[] | Prisma.StoryPageUncheckedCreateWithoutAssetInput[]
-  connectOrCreate?: Prisma.StoryPageCreateOrConnectWithoutAssetInput | Prisma.StoryPageCreateOrConnectWithoutAssetInput[]
-  createMany?: Prisma.StoryPageCreateManyAssetInputEnvelope
-  connect?: Prisma.StoryPageWhereUniqueInput | Prisma.StoryPageWhereUniqueInput[]
-}
-
-export type StoryPageUpdateManyWithoutAssetNestedInput = {
-  create?: Prisma.XOR<Prisma.StoryPageCreateWithoutAssetInput, Prisma.StoryPageUncheckedCreateWithoutAssetInput> | Prisma.StoryPageCreateWithoutAssetInput[] | Prisma.StoryPageUncheckedCreateWithoutAssetInput[]
-  connectOrCreate?: Prisma.StoryPageCreateOrConnectWithoutAssetInput | Prisma.StoryPageCreateOrConnectWithoutAssetInput[]
-  upsert?: Prisma.StoryPageUpsertWithWhereUniqueWithoutAssetInput | Prisma.StoryPageUpsertWithWhereUniqueWithoutAssetInput[]
-  createMany?: Prisma.StoryPageCreateManyAssetInputEnvelope
-  set?: Prisma.StoryPageWhereUniqueInput | Prisma.StoryPageWhereUniqueInput[]
-  disconnect?: Prisma.StoryPageWhereUniqueInput | Prisma.StoryPageWhereUniqueInput[]
-  delete?: Prisma.StoryPageWhereUniqueInput | Prisma.StoryPageWhereUniqueInput[]
-  connect?: Prisma.StoryPageWhereUniqueInput | Prisma.StoryPageWhereUniqueInput[]
-  update?: Prisma.StoryPageUpdateWithWhereUniqueWithoutAssetInput | Prisma.StoryPageUpdateWithWhereUniqueWithoutAssetInput[]
-  updateMany?: Prisma.StoryPageUpdateManyWithWhereWithoutAssetInput | Prisma.StoryPageUpdateManyWithWhereWithoutAssetInput[]
-  deleteMany?: Prisma.StoryPageScalarWhereInput | Prisma.StoryPageScalarWhereInput[]
-}
-
-export type StoryPageUncheckedUpdateManyWithoutAssetNestedInput = {
-  create?: Prisma.XOR<Prisma.StoryPageCreateWithoutAssetInput, Prisma.StoryPageUncheckedCreateWithoutAssetInput> | Prisma.StoryPageCreateWithoutAssetInput[] | Prisma.StoryPageUncheckedCreateWithoutAssetInput[]
-  connectOrCreate?: Prisma.StoryPageCreateOrConnectWithoutAssetInput | Prisma.StoryPageCreateOrConnectWithoutAssetInput[]
-  upsert?: Prisma.StoryPageUpsertWithWhereUniqueWithoutAssetInput | Prisma.StoryPageUpsertWithWhereUniqueWithoutAssetInput[]
-  createMany?: Prisma.StoryPageCreateManyAssetInputEnvelope
-  set?: Prisma.StoryPageWhereUniqueInput | Prisma.StoryPageWhereUniqueInput[]
-  disconnect?: Prisma.StoryPageWhereUniqueInput | Prisma.StoryPageWhereUniqueInput[]
-  delete?: Prisma.StoryPageWhereUniqueInput | Prisma.StoryPageWhereUniqueInput[]
-  connect?: Prisma.StoryPageWhereUniqueInput | Prisma.StoryPageWhereUniqueInput[]
-  update?: Prisma.StoryPageUpdateWithWhereUniqueWithoutAssetInput | Prisma.StoryPageUpdateWithWhereUniqueWithoutAssetInput[]
-  updateMany?: Prisma.StoryPageUpdateManyWithWhereWithoutAssetInput | Prisma.StoryPageUpdateManyWithWhereWithoutAssetInput[]
-  deleteMany?: Prisma.StoryPageScalarWhereInput | Prisma.StoryPageScalarWhereInput[]
 }
 
 export type StoryPageCreateNestedManyWithoutStoryInput = {
@@ -447,69 +403,18 @@ export type StoryPageUncheckedUpdateManyWithoutStoryNestedInput = {
   deleteMany?: Prisma.StoryPageScalarWhereInput | Prisma.StoryPageScalarWhereInput[]
 }
 
-export type StoryPageCreateWithoutAssetInput = {
-  id?: string
-  content: string
-  order: number
-  story: Prisma.StoryActivityCreateNestedOneWithoutPagesInput
-}
-
-export type StoryPageUncheckedCreateWithoutAssetInput = {
-  id?: string
-  storyId: string
-  content: string
-  order: number
-}
-
-export type StoryPageCreateOrConnectWithoutAssetInput = {
-  where: Prisma.StoryPageWhereUniqueInput
-  create: Prisma.XOR<Prisma.StoryPageCreateWithoutAssetInput, Prisma.StoryPageUncheckedCreateWithoutAssetInput>
-}
-
-export type StoryPageCreateManyAssetInputEnvelope = {
-  data: Prisma.StoryPageCreateManyAssetInput | Prisma.StoryPageCreateManyAssetInput[]
-  skipDuplicates?: boolean
-}
-
-export type StoryPageUpsertWithWhereUniqueWithoutAssetInput = {
-  where: Prisma.StoryPageWhereUniqueInput
-  update: Prisma.XOR<Prisma.StoryPageUpdateWithoutAssetInput, Prisma.StoryPageUncheckedUpdateWithoutAssetInput>
-  create: Prisma.XOR<Prisma.StoryPageCreateWithoutAssetInput, Prisma.StoryPageUncheckedCreateWithoutAssetInput>
-}
-
-export type StoryPageUpdateWithWhereUniqueWithoutAssetInput = {
-  where: Prisma.StoryPageWhereUniqueInput
-  data: Prisma.XOR<Prisma.StoryPageUpdateWithoutAssetInput, Prisma.StoryPageUncheckedUpdateWithoutAssetInput>
-}
-
-export type StoryPageUpdateManyWithWhereWithoutAssetInput = {
-  where: Prisma.StoryPageScalarWhereInput
-  data: Prisma.XOR<Prisma.StoryPageUpdateManyMutationInput, Prisma.StoryPageUncheckedUpdateManyWithoutAssetInput>
-}
-
-export type StoryPageScalarWhereInput = {
-  AND?: Prisma.StoryPageScalarWhereInput | Prisma.StoryPageScalarWhereInput[]
-  OR?: Prisma.StoryPageScalarWhereInput[]
-  NOT?: Prisma.StoryPageScalarWhereInput | Prisma.StoryPageScalarWhereInput[]
-  id?: Prisma.StringFilter<"StoryPage"> | string
-  storyId?: Prisma.StringFilter<"StoryPage"> | string
-  content?: Prisma.StringFilter<"StoryPage"> | string
-  order?: Prisma.IntFilter<"StoryPage"> | number
-  assetId?: Prisma.StringFilter<"StoryPage"> | string
-}
-
 export type StoryPageCreateWithoutStoryInput = {
   id?: string
+  assetName?: string | null
   content: string
   order: number
-  asset: Prisma.AssetCreateNestedOneWithoutStoryPagesInput
 }
 
 export type StoryPageUncheckedCreateWithoutStoryInput = {
   id?: string
+  assetName?: string | null
   content: string
   order: number
-  assetId: string
 }
 
 export type StoryPageCreateOrConnectWithoutStoryInput = {
@@ -538,60 +443,43 @@ export type StoryPageUpdateManyWithWhereWithoutStoryInput = {
   data: Prisma.XOR<Prisma.StoryPageUpdateManyMutationInput, Prisma.StoryPageUncheckedUpdateManyWithoutStoryInput>
 }
 
-export type StoryPageCreateManyAssetInput = {
-  id?: string
-  storyId: string
-  content: string
-  order: number
-}
-
-export type StoryPageUpdateWithoutAssetInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  story?: Prisma.StoryActivityUpdateOneRequiredWithoutPagesNestedInput
-}
-
-export type StoryPageUncheckedUpdateWithoutAssetInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  storyId?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type StoryPageUncheckedUpdateManyWithoutAssetInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  storyId?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+export type StoryPageScalarWhereInput = {
+  AND?: Prisma.StoryPageScalarWhereInput | Prisma.StoryPageScalarWhereInput[]
+  OR?: Prisma.StoryPageScalarWhereInput[]
+  NOT?: Prisma.StoryPageScalarWhereInput | Prisma.StoryPageScalarWhereInput[]
+  id?: Prisma.StringFilter<"StoryPage"> | string
+  storyId?: Prisma.StringFilter<"StoryPage"> | string
+  assetName?: Prisma.StringNullableFilter<"StoryPage"> | string | null
+  content?: Prisma.StringFilter<"StoryPage"> | string
+  order?: Prisma.IntFilter<"StoryPage"> | number
 }
 
 export type StoryPageCreateManyStoryInput = {
   id?: string
+  assetName?: string | null
   content: string
   order: number
-  assetId: string
 }
 
 export type StoryPageUpdateWithoutStoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  assetName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  asset?: Prisma.AssetUpdateOneRequiredWithoutStoryPagesNestedInput
 }
 
 export type StoryPageUncheckedUpdateWithoutStoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  assetName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  assetId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StoryPageUncheckedUpdateManyWithoutStoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  assetName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
-  assetId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -599,67 +487,60 @@ export type StoryPageUncheckedUpdateManyWithoutStoryInput = {
 export type StoryPageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   storyId?: boolean
+  assetName?: boolean
   content?: boolean
   order?: boolean
-  assetId?: boolean
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
   story?: boolean | Prisma.StoryActivityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storyPage"]>
 
 export type StoryPageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   storyId?: boolean
+  assetName?: boolean
   content?: boolean
   order?: boolean
-  assetId?: boolean
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
   story?: boolean | Prisma.StoryActivityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storyPage"]>
 
 export type StoryPageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   storyId?: boolean
+  assetName?: boolean
   content?: boolean
   order?: boolean
-  assetId?: boolean
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
   story?: boolean | Prisma.StoryActivityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["storyPage"]>
 
 export type StoryPageSelectScalar = {
   id?: boolean
   storyId?: boolean
+  assetName?: boolean
   content?: boolean
   order?: boolean
-  assetId?: boolean
 }
 
-export type StoryPageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "storyId" | "content" | "order" | "assetId", ExtArgs["result"]["storyPage"]>
+export type StoryPageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "storyId" | "assetName" | "content" | "order", ExtArgs["result"]["storyPage"]>
 export type StoryPageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
   story?: boolean | Prisma.StoryActivityDefaultArgs<ExtArgs>
 }
 export type StoryPageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
   story?: boolean | Prisma.StoryActivityDefaultArgs<ExtArgs>
 }
 export type StoryPageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
   story?: boolean | Prisma.StoryActivityDefaultArgs<ExtArgs>
 }
 
 export type $StoryPagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "StoryPage"
   objects: {
-    asset: Prisma.$AssetPayload<ExtArgs>
     story: Prisma.$StoryActivityPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     storyId: string
+    assetName: string | null
     content: string
     order: number
-    assetId: string
   }, ExtArgs["result"]["storyPage"]>
   composites: {}
 }
@@ -1054,7 +935,6 @@ readonly fields: StoryPageFieldRefs;
  */
 export interface Prisma__StoryPageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  asset<T extends Prisma.AssetDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AssetDefaultArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   story<T extends Prisma.StoryActivityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StoryActivityDefaultArgs<ExtArgs>>): Prisma.Prisma__StoryActivityClient<runtime.Types.Result.GetResult<Prisma.$StoryActivityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1087,9 +967,9 @@ export interface Prisma__StoryPageClient<T, Null = never, ExtArgs extends runtim
 export interface StoryPageFieldRefs {
   readonly id: Prisma.FieldRef<"StoryPage", 'String'>
   readonly storyId: Prisma.FieldRef<"StoryPage", 'String'>
+  readonly assetName: Prisma.FieldRef<"StoryPage", 'String'>
   readonly content: Prisma.FieldRef<"StoryPage", 'String'>
   readonly order: Prisma.FieldRef<"StoryPage", 'Int'>
-  readonly assetId: Prisma.FieldRef<"StoryPage", 'String'>
 }
     
 

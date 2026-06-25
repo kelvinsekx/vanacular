@@ -280,8 +280,8 @@ export type AssetWhereInput = {
   height?: Prisma.IntNullableFilter<"Asset"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
-  storyPages?: Prisma.StoryPageListRelationFilter
   multipleChoiceOptions?: Prisma.MultipleChoiceOptionListRelationFilter
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionListRelationFilter
 }
 
 export type AssetOrderByWithRelationInput = {
@@ -297,18 +297,18 @@ export type AssetOrderByWithRelationInput = {
   height?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  storyPages?: Prisma.StoryPageOrderByRelationAggregateInput
   multipleChoiceOptions?: Prisma.MultipleChoiceOptionOrderByRelationAggregateInput
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionOrderByRelationAggregateInput
 }
 
 export type AssetWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  name?: string
   key?: string
   AND?: Prisma.AssetWhereInput | Prisma.AssetWhereInput[]
   OR?: Prisma.AssetWhereInput[]
   NOT?: Prisma.AssetWhereInput | Prisma.AssetWhereInput[]
   type?: Prisma.EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
-  name?: Prisma.StringFilter<"Asset"> | string
   alt?: Prisma.StringNullableFilter<"Asset"> | string | null
   description?: Prisma.StringNullableFilter<"Asset"> | string | null
   mimeType?: Prisma.StringNullableFilter<"Asset"> | string | null
@@ -317,9 +317,9 @@ export type AssetWhereUniqueInput = Prisma.AtLeast<{
   height?: Prisma.IntNullableFilter<"Asset"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
-  storyPages?: Prisma.StoryPageListRelationFilter
   multipleChoiceOptions?: Prisma.MultipleChoiceOptionListRelationFilter
-}, "id" | "key">
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionListRelationFilter
+}, "id" | "name" | "key">
 
 export type AssetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -372,8 +372,8 @@ export type AssetCreateInput = {
   height?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  storyPages?: Prisma.StoryPageCreateNestedManyWithoutAssetInput
   multipleChoiceOptions?: Prisma.MultipleChoiceOptionCreateNestedManyWithoutAssetInput
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionCreateNestedManyWithoutAssetInput
 }
 
 export type AssetUncheckedCreateInput = {
@@ -389,8 +389,8 @@ export type AssetUncheckedCreateInput = {
   height?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  storyPages?: Prisma.StoryPageUncheckedCreateNestedManyWithoutAssetInput
   multipleChoiceOptions?: Prisma.MultipleChoiceOptionUncheckedCreateNestedManyWithoutAssetInput
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type AssetUpdateInput = {
@@ -406,8 +406,8 @@ export type AssetUpdateInput = {
   height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  storyPages?: Prisma.StoryPageUpdateManyWithoutAssetNestedInput
   multipleChoiceOptions?: Prisma.MultipleChoiceOptionUpdateManyWithoutAssetNestedInput
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionUpdateManyWithoutAssetNestedInput
 }
 
 export type AssetUncheckedUpdateInput = {
@@ -423,8 +423,8 @@ export type AssetUncheckedUpdateInput = {
   height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  storyPages?: Prisma.StoryPageUncheckedUpdateManyWithoutAssetNestedInput
   multipleChoiceOptions?: Prisma.MultipleChoiceOptionUncheckedUpdateManyWithoutAssetNestedInput
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type AssetCreateManyInput = {
@@ -534,13 +534,24 @@ export type AssetNullableScalarRelationFilter = {
   isNot?: Prisma.AssetWhereInput | null
 }
 
-export type AssetScalarRelationFilter = {
-  is?: Prisma.AssetWhereInput
-  isNot?: Prisma.AssetWhereInput
-}
-
 export type EnumAssetTypeFieldUpdateOperationsInput = {
   set?: $Enums.AssetType
+}
+
+export type AssetCreateNestedOneWithoutMultiChoiceActivityQuestionsInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutMultiChoiceActivityQuestionsInput, Prisma.AssetUncheckedCreateWithoutMultiChoiceActivityQuestionsInput>
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutMultiChoiceActivityQuestionsInput
+  connect?: Prisma.AssetWhereUniqueInput
+}
+
+export type AssetUpdateOneWithoutMultiChoiceActivityQuestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutMultiChoiceActivityQuestionsInput, Prisma.AssetUncheckedCreateWithoutMultiChoiceActivityQuestionsInput>
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutMultiChoiceActivityQuestionsInput
+  upsert?: Prisma.AssetUpsertWithoutMultiChoiceActivityQuestionsInput
+  disconnect?: Prisma.AssetWhereInput | boolean
+  delete?: Prisma.AssetWhereInput | boolean
+  connect?: Prisma.AssetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutMultiChoiceActivityQuestionsInput, Prisma.AssetUpdateWithoutMultiChoiceActivityQuestionsInput>, Prisma.AssetUncheckedUpdateWithoutMultiChoiceActivityQuestionsInput>
 }
 
 export type AssetCreateNestedOneWithoutMultipleChoiceOptionsInput = {
@@ -559,18 +570,84 @@ export type AssetUpdateOneWithoutMultipleChoiceOptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutMultipleChoiceOptionsInput, Prisma.AssetUpdateWithoutMultipleChoiceOptionsInput>, Prisma.AssetUncheckedUpdateWithoutMultipleChoiceOptionsInput>
 }
 
-export type AssetCreateNestedOneWithoutStoryPagesInput = {
-  create?: Prisma.XOR<Prisma.AssetCreateWithoutStoryPagesInput, Prisma.AssetUncheckedCreateWithoutStoryPagesInput>
-  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutStoryPagesInput
-  connect?: Prisma.AssetWhereUniqueInput
+export type AssetCreateWithoutMultiChoiceActivityQuestionsInput = {
+  id?: string
+  type: $Enums.AssetType
+  name: string
+  alt?: string | null
+  description?: string | null
+  key: string
+  mimeType?: string | null
+  size?: number | null
+  width?: number | null
+  height?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  multipleChoiceOptions?: Prisma.MultipleChoiceOptionCreateNestedManyWithoutAssetInput
 }
 
-export type AssetUpdateOneRequiredWithoutStoryPagesNestedInput = {
-  create?: Prisma.XOR<Prisma.AssetCreateWithoutStoryPagesInput, Prisma.AssetUncheckedCreateWithoutStoryPagesInput>
-  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutStoryPagesInput
-  upsert?: Prisma.AssetUpsertWithoutStoryPagesInput
-  connect?: Prisma.AssetWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutStoryPagesInput, Prisma.AssetUpdateWithoutStoryPagesInput>, Prisma.AssetUncheckedUpdateWithoutStoryPagesInput>
+export type AssetUncheckedCreateWithoutMultiChoiceActivityQuestionsInput = {
+  id?: string
+  type: $Enums.AssetType
+  name: string
+  alt?: string | null
+  description?: string | null
+  key: string
+  mimeType?: string | null
+  size?: number | null
+  width?: number | null
+  height?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  multipleChoiceOptions?: Prisma.MultipleChoiceOptionUncheckedCreateNestedManyWithoutAssetInput
+}
+
+export type AssetCreateOrConnectWithoutMultiChoiceActivityQuestionsInput = {
+  where: Prisma.AssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssetCreateWithoutMultiChoiceActivityQuestionsInput, Prisma.AssetUncheckedCreateWithoutMultiChoiceActivityQuestionsInput>
+}
+
+export type AssetUpsertWithoutMultiChoiceActivityQuestionsInput = {
+  update: Prisma.XOR<Prisma.AssetUpdateWithoutMultiChoiceActivityQuestionsInput, Prisma.AssetUncheckedUpdateWithoutMultiChoiceActivityQuestionsInput>
+  create: Prisma.XOR<Prisma.AssetCreateWithoutMultiChoiceActivityQuestionsInput, Prisma.AssetUncheckedCreateWithoutMultiChoiceActivityQuestionsInput>
+  where?: Prisma.AssetWhereInput
+}
+
+export type AssetUpdateToOneWithWhereWithoutMultiChoiceActivityQuestionsInput = {
+  where?: Prisma.AssetWhereInput
+  data: Prisma.XOR<Prisma.AssetUpdateWithoutMultiChoiceActivityQuestionsInput, Prisma.AssetUncheckedUpdateWithoutMultiChoiceActivityQuestionsInput>
+}
+
+export type AssetUpdateWithoutMultiChoiceActivityQuestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  key?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  multipleChoiceOptions?: Prisma.MultipleChoiceOptionUpdateManyWithoutAssetNestedInput
+}
+
+export type AssetUncheckedUpdateWithoutMultiChoiceActivityQuestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  key?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  multipleChoiceOptions?: Prisma.MultipleChoiceOptionUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type AssetCreateWithoutMultipleChoiceOptionsInput = {
@@ -586,7 +663,7 @@ export type AssetCreateWithoutMultipleChoiceOptionsInput = {
   height?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  storyPages?: Prisma.StoryPageCreateNestedManyWithoutAssetInput
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionCreateNestedManyWithoutAssetInput
 }
 
 export type AssetUncheckedCreateWithoutMultipleChoiceOptionsInput = {
@@ -602,7 +679,7 @@ export type AssetUncheckedCreateWithoutMultipleChoiceOptionsInput = {
   height?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  storyPages?: Prisma.StoryPageUncheckedCreateNestedManyWithoutAssetInput
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type AssetCreateOrConnectWithoutMultipleChoiceOptionsInput = {
@@ -634,7 +711,7 @@ export type AssetUpdateWithoutMultipleChoiceOptionsInput = {
   height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  storyPages?: Prisma.StoryPageUpdateManyWithoutAssetNestedInput
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionUpdateManyWithoutAssetNestedInput
 }
 
 export type AssetUncheckedUpdateWithoutMultipleChoiceOptionsInput = {
@@ -650,87 +727,7 @@ export type AssetUncheckedUpdateWithoutMultipleChoiceOptionsInput = {
   height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  storyPages?: Prisma.StoryPageUncheckedUpdateManyWithoutAssetNestedInput
-}
-
-export type AssetCreateWithoutStoryPagesInput = {
-  id?: string
-  type: $Enums.AssetType
-  name: string
-  alt?: string | null
-  description?: string | null
-  key: string
-  mimeType?: string | null
-  size?: number | null
-  width?: number | null
-  height?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  multipleChoiceOptions?: Prisma.MultipleChoiceOptionCreateNestedManyWithoutAssetInput
-}
-
-export type AssetUncheckedCreateWithoutStoryPagesInput = {
-  id?: string
-  type: $Enums.AssetType
-  name: string
-  alt?: string | null
-  description?: string | null
-  key: string
-  mimeType?: string | null
-  size?: number | null
-  width?: number | null
-  height?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  multipleChoiceOptions?: Prisma.MultipleChoiceOptionUncheckedCreateNestedManyWithoutAssetInput
-}
-
-export type AssetCreateOrConnectWithoutStoryPagesInput = {
-  where: Prisma.AssetWhereUniqueInput
-  create: Prisma.XOR<Prisma.AssetCreateWithoutStoryPagesInput, Prisma.AssetUncheckedCreateWithoutStoryPagesInput>
-}
-
-export type AssetUpsertWithoutStoryPagesInput = {
-  update: Prisma.XOR<Prisma.AssetUpdateWithoutStoryPagesInput, Prisma.AssetUncheckedUpdateWithoutStoryPagesInput>
-  create: Prisma.XOR<Prisma.AssetCreateWithoutStoryPagesInput, Prisma.AssetUncheckedCreateWithoutStoryPagesInput>
-  where?: Prisma.AssetWhereInput
-}
-
-export type AssetUpdateToOneWithWhereWithoutStoryPagesInput = {
-  where?: Prisma.AssetWhereInput
-  data: Prisma.XOR<Prisma.AssetUpdateWithoutStoryPagesInput, Prisma.AssetUncheckedUpdateWithoutStoryPagesInput>
-}
-
-export type AssetUpdateWithoutStoryPagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  key?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  multipleChoiceOptions?: Prisma.MultipleChoiceOptionUpdateManyWithoutAssetNestedInput
-}
-
-export type AssetUncheckedUpdateWithoutStoryPagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  key?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  multipleChoiceOptions?: Prisma.MultipleChoiceOptionUncheckedUpdateManyWithoutAssetNestedInput
+  multiChoiceActivityQuestions?: Prisma.MultiChoiceActivityQuestionUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 
@@ -739,13 +736,13 @@ export type AssetUncheckedUpdateWithoutStoryPagesInput = {
  */
 
 export type AssetCountOutputType = {
-  storyPages: number
   multipleChoiceOptions: number
+  multiChoiceActivityQuestions: number
 }
 
 export type AssetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  storyPages?: boolean | AssetCountOutputTypeCountStoryPagesArgs
   multipleChoiceOptions?: boolean | AssetCountOutputTypeCountMultipleChoiceOptionsArgs
+  multiChoiceActivityQuestions?: boolean | AssetCountOutputTypeCountMultiChoiceActivityQuestionsArgs
 }
 
 /**
@@ -761,15 +758,15 @@ export type AssetCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * AssetCountOutputType without action
  */
-export type AssetCountOutputTypeCountStoryPagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.StoryPageWhereInput
+export type AssetCountOutputTypeCountMultipleChoiceOptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MultipleChoiceOptionWhereInput
 }
 
 /**
  * AssetCountOutputType without action
  */
-export type AssetCountOutputTypeCountMultipleChoiceOptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MultipleChoiceOptionWhereInput
+export type AssetCountOutputTypeCountMultiChoiceActivityQuestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MultiChoiceActivityQuestionWhereInput
 }
 
 
@@ -786,8 +783,8 @@ export type AssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   height?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  storyPages?: boolean | Prisma.Asset$storyPagesArgs<ExtArgs>
   multipleChoiceOptions?: boolean | Prisma.Asset$multipleChoiceOptionsArgs<ExtArgs>
+  multiChoiceActivityQuestions?: boolean | Prisma.Asset$multiChoiceActivityQuestionsArgs<ExtArgs>
   _count?: boolean | Prisma.AssetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["asset"]>
 
@@ -838,8 +835,8 @@ export type AssetSelectScalar = {
 
 export type AssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "name" | "alt" | "description" | "key" | "mimeType" | "size" | "width" | "height" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
 export type AssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  storyPages?: boolean | Prisma.Asset$storyPagesArgs<ExtArgs>
   multipleChoiceOptions?: boolean | Prisma.Asset$multipleChoiceOptionsArgs<ExtArgs>
+  multiChoiceActivityQuestions?: boolean | Prisma.Asset$multiChoiceActivityQuestionsArgs<ExtArgs>
   _count?: boolean | Prisma.AssetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AssetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -848,8 +845,8 @@ export type AssetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $AssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Asset"
   objects: {
-    storyPages: Prisma.$StoryPagePayload<ExtArgs>[]
     multipleChoiceOptions: Prisma.$MultipleChoiceOptionPayload<ExtArgs>[]
+    multiChoiceActivityQuestions: Prisma.$MultiChoiceActivityQuestionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1258,8 +1255,8 @@ readonly fields: AssetFieldRefs;
  */
 export interface Prisma__AssetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  storyPages<T extends Prisma.Asset$storyPagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$storyPagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoryPagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   multipleChoiceOptions<T extends Prisma.Asset$multipleChoiceOptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$multipleChoiceOptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MultipleChoiceOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  multiChoiceActivityQuestions<T extends Prisma.Asset$multiChoiceActivityQuestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$multiChoiceActivityQuestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MultiChoiceActivityQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1694,30 +1691,6 @@ export type AssetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Asset.storyPages
- */
-export type Asset$storyPagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the StoryPage
-   */
-  select?: Prisma.StoryPageSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the StoryPage
-   */
-  omit?: Prisma.StoryPageOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.StoryPageInclude<ExtArgs> | null
-  where?: Prisma.StoryPageWhereInput
-  orderBy?: Prisma.StoryPageOrderByWithRelationInput | Prisma.StoryPageOrderByWithRelationInput[]
-  cursor?: Prisma.StoryPageWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.StoryPageScalarFieldEnum | Prisma.StoryPageScalarFieldEnum[]
-}
-
-/**
  * Asset.multipleChoiceOptions
  */
 export type Asset$multipleChoiceOptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1739,6 +1712,30 @@ export type Asset$multipleChoiceOptionsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.MultipleChoiceOptionScalarFieldEnum | Prisma.MultipleChoiceOptionScalarFieldEnum[]
+}
+
+/**
+ * Asset.multiChoiceActivityQuestions
+ */
+export type Asset$multiChoiceActivityQuestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MultiChoiceActivityQuestion
+   */
+  select?: Prisma.MultiChoiceActivityQuestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MultiChoiceActivityQuestion
+   */
+  omit?: Prisma.MultiChoiceActivityQuestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MultiChoiceActivityQuestionInclude<ExtArgs> | null
+  where?: Prisma.MultiChoiceActivityQuestionWhereInput
+  orderBy?: Prisma.MultiChoiceActivityQuestionOrderByWithRelationInput | Prisma.MultiChoiceActivityQuestionOrderByWithRelationInput[]
+  cursor?: Prisma.MultiChoiceActivityQuestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MultiChoiceActivityQuestionScalarFieldEnum | Prisma.MultiChoiceActivityQuestionScalarFieldEnum[]
 }
 
 /**

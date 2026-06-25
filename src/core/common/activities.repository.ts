@@ -1,20 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/infra/database/prisma.service';
-import { Prisma } from 'src/generated/prisma/client';
-
-type ActivityWithRelations = Prisma.ActivityGetPayload<{
-  include: {
-    multiChoice: {
-      include: {
-        options: {
-          include: {
-            asset: true;
-          };
-        };
-      };
-    };
-  };
-}>;
 
 @Injectable()
 export class ActivitiesRepository {
@@ -24,9 +9,7 @@ export class ActivitiesRepository {
     return await this.prisma.activity.findMany();
   }
 
-  async findOneActivity(
-    activityID: string,
-  ): Promise<ActivityWithRelations | null> {
+  async findOneActivity(activityID: string) {
     return await this.prisma.activity.findFirst({
       where: {
         id: activityID,
@@ -34,14 +17,22 @@ export class ActivitiesRepository {
       include: {
         multiChoice: {
           include: {
-            options: {
+            questions: {
               include: {
-                asset: true,
+                options: {
+                  include: {
+                    asset: true,
+                  },
+                },
               },
             },
           },
         },
-        story: true,
+        story: {
+          include: {
+            pages: true,
+          },
+        },
         radio: true,
       },
     });
