@@ -1,0 +1,40 @@
+{
+  "title": "Animals in Yoruba",
+  "activities": [
+    {
+      "type": "IMAGE_CHOICE",
+      "title": "Identify Yoruba Animals",
+      "order": 1,
+      "questions": [
+        {
+          "prompt": "Select the image that represents 'Aja'.",
+          "options": [
+            { "asset": "doggle-dog", "isCorrect": true },
+            { "asset": "doodle-lion" },
+            { "asset": "doodle-cat" },
+            { "asset": "doodle-rabbit" }
+          ]
+        },
+        {
+          "prompt": "Select the image that represents 'Olongbo'.",
+          "options": [
+            { "asset": "doggle-dog" },
+            { "asset": "doodle-lion" },
+            { "asset": "doodle-cat", "isCorrect": true },
+            { "asset": "doodle-rabbit" }
+          ]
+        },
+        {
+          "prompt": "Which animal is popularly known as the jungle king?",
+          "explanation": "The Lion (Kinihun) is often associated as King.",
+          "options": [
+            { "asset": "doggle-dog" },
+            { "asset": "doodle-lion", "isCorrect": true },
+            { "asset": "doodle-cat" },
+            { "asset": "doodle-rabbit" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Three Letter Words",
+  "activities": [
+    {
+      "type": "STORY",
+      "title": "Word Structure in Yoruba",
+      "order": 1,
+      "pages": [
+        {
+          "order": 1,
+          "content": "There are no two-letter words in Yoruba."
+        },
+        {
+          "order": 2,
+          "content": "Instead, Yoruba commonly starts with 3-letter words."
+        },
+        {
+          "order": 3,
+          "content": "Examples include: Epo, Ayo, Oba, Iyo."
+        }
+      ]
+    }
+  ]
+}

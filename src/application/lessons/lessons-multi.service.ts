@@ -38,37 +38,34 @@ export class LessonsMultiTypeService {
       });
     return await this.prisma.activity.create({
       data: {
+        title: dto.title,
         lessonId,
         type: dto.type,
         order: dto.order,
-        title: dto.title,
+
         multiChoice: {
           create: {
-            prompt: dto.prompt,
-            options: {
-              create: dto.options.map((option, index) => ({
-                text: option.text,
-                assetId: option.assetId,
-                isCorrect: option.isCorrect,
-                position: index,
-              })),
-            },
-            hints: dto.hints?.length
-              ? {
-                  create: dto.hints.map((hint) => ({
-                    text: hint.text,
-                    order: hint.order,
+            questions: {
+              create: {
+                prompt: dto.prompt,
+                options: {
+                  create: dto.options.map((option, index) => ({
+                    text: option.text,
+                    assetName: option.assetName,
+                    isCorrect: option.isCorrect,
+                    position: index,
                   })),
-                }
-              : undefined,
-          },
-        },
-      },
-      include: {
-        multiChoice: {
-          include: {
-            options: true,
-            hints: true,
+                },
+                hints: dto.hints?.length
+                  ? {
+                      create: dto.hints.map((hint) => ({
+                        text: hint.text,
+                        order: hint.order,
+                      })),
+                    }
+                  : undefined,
+              },
+            },
           },
         },
       },
@@ -92,17 +89,11 @@ export class LessonsMultiTypeService {
       data: {
         order: dto.order,
         type: dto.type,
-        multiChoice: {
-          update: {
-            prompt: dto.prompt,
-          },
-        },
       },
       include: {
         multiChoice: {
           include: {
-            options: true,
-            hints: true,
+            questions: true,
           },
         },
       },
@@ -113,7 +104,7 @@ export class LessonsMultiTypeService {
     const option = await this.prisma.multipleChoiceOption.findUnique({
       where: { id: optionId },
       include: {
-        activity: {
+        question: {
           include: {
             options: true,
           },
@@ -127,7 +118,7 @@ export class LessonsMultiTypeService {
 
     // If this option is being marked as correct, ensure no other option in the same activity is correct
     if (updateOptionDto.isCorrect === true) {
-      const activityOptions = option.activity.options;
+      const activityOptions = option.question.options;
       const hasOtherCorrect = activityOptions.some(
         (opt) => opt.id !== optionId && opt.isCorrect === true,
       );
@@ -136,7 +127,7 @@ export class LessonsMultiTypeService {
         // Set all other options to incorrect
         await this.prisma.multipleChoiceOption.updateMany({
           where: {
-            activityId: option.activityId,
+            questionId: option.questionId,
             id: { not: optionId },
           },
           data: {
@@ -150,7 +141,7 @@ export class LessonsMultiTypeService {
       where: { id: optionId },
       data: {
         text: updateOptionDto.text,
-        assetId: updateOptionDto.assetId,
+        assetName: updateOptionDto.assetName,
         isCorrect: updateOptionDto.isCorrect,
         position: updateOptionDto.position,
         alt: updateOptionDto.alt,

@@ -1,0 +1,31 @@
+{
+  "title": "Letters",
+  "activities": [
+    {
+      "type": "STORY",
+      "title": "Yoruba Alphabet Overview",
+      "order": 1,
+      "pages": [
+        {
+          "order": 1,
+          "content": "There are 25 letters in the Yoruba alphabet, and 12 vowels categorized into 7 oral vowels & 5 nasal vowels."
+        }
+      ]
+    },
+    {
+      "type": "STORY",
+      "title": "Yoruba Letters",
+      "order": 2,
+      "pages": [
+        {
+          "order": 1,
+          "content": "There are 25 letters in Yoruba:"
+        },
+        {
+          "order": 2,
+          "content": "a b d e ẹ f g gb h j k l m n o ọ p r s ṣ t u w y"
+        }
+      ]
+    }
+  ]
+}

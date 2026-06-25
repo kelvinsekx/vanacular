@@ -1,11 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 import { ActivitiesRepository } from 'src/core/common/activities.repository';
+import { PrismaService } from 'src/infra/database/prisma.service';
 
 @Injectable()
 export class ActivitiesService {
-  constructor(private readonly activitiesRepository: ActivitiesRepository) {}
+  private logger = new Logger(ActivitiesService.name);
+  constructor(
+    private readonly activitiesRepository: ActivitiesRepository,
+    private readonly prisma: PrismaService,
+  ) {}
   create(createActivityDto: CreateActivityDto) {
     return 'This action adds a new activity';
   }
@@ -15,28 +20,40 @@ export class ActivitiesService {
   }
 
   async findOne(id: string) {
-    const lesson = await this.activitiesRepository.findOneActivity(id);
-    if (lesson?.type == 'IMAGE_CHOICE' && lesson?.multiChoice) {
-      const transformedOptions = lesson.multiChoice.options.map((option) => ({
-        ...option,
-        imageUrl: option.asset?.key
-          ? `${process.env.S3_PUBLIC_URL!}/${option.asset.key}`
-          : null,
-      }));
+    const activity = await this.activitiesRepository.findOneActivity(id);
+    if (activity?.type == 'IMAGE_CHOICE' && activity?.multiChoice) {
+      const transformedOptions = activity.multiChoice.questions.map(
+        (question) => {
+          return {
+            ...question,
+            options: question.options.map((option) => ({
+              ...option,
+              imageUrl: option.asset?.key
+                ? `${process.env.S3_PUBLIC_URL!}/${option.asset.key}`
+                : null,
+            })),
+          };
+        },
+      );
 
       return {
-        title: lesson.title,
-        lessonId: lesson.lessonId,
-        type: lesson.type,
-        order: lesson.order,
-        xpReward: lesson.xpReward,
-        multiChoice: {
-          ...lesson.multiChoice,
-          options: transformedOptions,
+        data: {
+          title: activity.title,
+          lessonId: activity.lessonId,
+          type: activity.type,
+          order: activity.order,
+          xpReward: activity.xpReward,
+          multiChoice: {
+            ...activity.multiChoice,
+            options: transformedOptions,
+          },
         },
       };
     }
-    return {};
+    if (activity?.type == 'STORY') {
+      return { data: activity };
+    }
+    return { data: {} };
   }
 
   update(id: number, updateActivityDto: UpdateActivityDto) {

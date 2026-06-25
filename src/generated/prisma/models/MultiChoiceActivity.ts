@@ -26,52 +26,40 @@ export type AggregateMultiChoiceActivity = {
 
 export type MultiChoiceActivityMinAggregateOutputType = {
   id: string | null
-  activityId: string | null
-  prompt: string | null
-  explanation: string | null
   shuffle: boolean | null
+  activityId: string | null
 }
 
 export type MultiChoiceActivityMaxAggregateOutputType = {
   id: string | null
-  activityId: string | null
-  prompt: string | null
-  explanation: string | null
   shuffle: boolean | null
+  activityId: string | null
 }
 
 export type MultiChoiceActivityCountAggregateOutputType = {
   id: number
-  activityId: number
-  prompt: number
-  explanation: number
   shuffle: number
+  activityId: number
   _all: number
 }
 
 
 export type MultiChoiceActivityMinAggregateInputType = {
   id?: true
-  activityId?: true
-  prompt?: true
-  explanation?: true
   shuffle?: true
+  activityId?: true
 }
 
 export type MultiChoiceActivityMaxAggregateInputType = {
   id?: true
-  activityId?: true
-  prompt?: true
-  explanation?: true
   shuffle?: true
+  activityId?: true
 }
 
 export type MultiChoiceActivityCountAggregateInputType = {
   id?: true
-  activityId?: true
-  prompt?: true
-  explanation?: true
   shuffle?: true
+  activityId?: true
   _all?: true
 }
 
@@ -149,10 +137,8 @@ export type MultiChoiceActivityGroupByArgs<ExtArgs extends runtime.Types.Extensi
 
 export type MultiChoiceActivityGroupByOutputType = {
   id: string
-  activityId: string
-  prompt: string
-  explanation: string | null
   shuffle: boolean
+  activityId: string
   _count: MultiChoiceActivityCountAggregateOutputType | null
   _min: MultiChoiceActivityMinAggregateOutputType | null
   _max: MultiChoiceActivityMaxAggregateOutputType | null
@@ -178,24 +164,18 @@ export type MultiChoiceActivityWhereInput = {
   OR?: Prisma.MultiChoiceActivityWhereInput[]
   NOT?: Prisma.MultiChoiceActivityWhereInput | Prisma.MultiChoiceActivityWhereInput[]
   id?: Prisma.StringFilter<"MultiChoiceActivity"> | string
-  activityId?: Prisma.StringFilter<"MultiChoiceActivity"> | string
-  prompt?: Prisma.StringFilter<"MultiChoiceActivity"> | string
-  explanation?: Prisma.StringNullableFilter<"MultiChoiceActivity"> | string | null
   shuffle?: Prisma.BoolFilter<"MultiChoiceActivity"> | boolean
+  activityId?: Prisma.StringFilter<"MultiChoiceActivity"> | string
   activity?: Prisma.XOR<Prisma.ActivityScalarRelationFilter, Prisma.ActivityWhereInput>
-  options?: Prisma.MultipleChoiceOptionListRelationFilter
-  hints?: Prisma.HintListRelationFilter
+  questions?: Prisma.MultiChoiceActivityQuestionListRelationFilter
 }
 
 export type MultiChoiceActivityOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  activityId?: Prisma.SortOrder
-  prompt?: Prisma.SortOrder
-  explanation?: Prisma.SortOrderInput | Prisma.SortOrder
   shuffle?: Prisma.SortOrder
+  activityId?: Prisma.SortOrder
   activity?: Prisma.ActivityOrderByWithRelationInput
-  options?: Prisma.MultipleChoiceOptionOrderByRelationAggregateInput
-  hints?: Prisma.HintOrderByRelationAggregateInput
+  questions?: Prisma.MultiChoiceActivityQuestionOrderByRelationAggregateInput
 }
 
 export type MultiChoiceActivityWhereUniqueInput = Prisma.AtLeast<{
@@ -204,20 +184,15 @@ export type MultiChoiceActivityWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.MultiChoiceActivityWhereInput | Prisma.MultiChoiceActivityWhereInput[]
   OR?: Prisma.MultiChoiceActivityWhereInput[]
   NOT?: Prisma.MultiChoiceActivityWhereInput | Prisma.MultiChoiceActivityWhereInput[]
-  prompt?: Prisma.StringFilter<"MultiChoiceActivity"> | string
-  explanation?: Prisma.StringNullableFilter<"MultiChoiceActivity"> | string | null
   shuffle?: Prisma.BoolFilter<"MultiChoiceActivity"> | boolean
   activity?: Prisma.XOR<Prisma.ActivityScalarRelationFilter, Prisma.ActivityWhereInput>
-  options?: Prisma.MultipleChoiceOptionListRelationFilter
-  hints?: Prisma.HintListRelationFilter
+  questions?: Prisma.MultiChoiceActivityQuestionListRelationFilter
 }, "id" | "activityId">
 
 export type MultiChoiceActivityOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  activityId?: Prisma.SortOrder
-  prompt?: Prisma.SortOrder
-  explanation?: Prisma.SortOrderInput | Prisma.SortOrder
   shuffle?: Prisma.SortOrder
+  activityId?: Prisma.SortOrder
   _count?: Prisma.MultiChoiceActivityCountOrderByAggregateInput
   _max?: Prisma.MultiChoiceActivityMaxOrderByAggregateInput
   _min?: Prisma.MultiChoiceActivityMinOrderByAggregateInput
@@ -228,73 +203,53 @@ export type MultiChoiceActivityScalarWhereWithAggregatesInput = {
   OR?: Prisma.MultiChoiceActivityScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MultiChoiceActivityScalarWhereWithAggregatesInput | Prisma.MultiChoiceActivityScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"MultiChoiceActivity"> | string
-  activityId?: Prisma.StringWithAggregatesFilter<"MultiChoiceActivity"> | string
-  prompt?: Prisma.StringWithAggregatesFilter<"MultiChoiceActivity"> | string
-  explanation?: Prisma.StringNullableWithAggregatesFilter<"MultiChoiceActivity"> | string | null
   shuffle?: Prisma.BoolWithAggregatesFilter<"MultiChoiceActivity"> | boolean
+  activityId?: Prisma.StringWithAggregatesFilter<"MultiChoiceActivity"> | string
 }
 
 export type MultiChoiceActivityCreateInput = {
   id?: string
-  prompt: string
-  explanation?: string | null
   shuffle?: boolean
   activity: Prisma.ActivityCreateNestedOneWithoutMultiChoiceInput
-  options?: Prisma.MultipleChoiceOptionCreateNestedManyWithoutActivityInput
-  hints?: Prisma.HintCreateNestedManyWithoutActivityInput
+  questions?: Prisma.MultiChoiceActivityQuestionCreateNestedManyWithoutMultiChoiceActivityInput
 }
 
 export type MultiChoiceActivityUncheckedCreateInput = {
   id?: string
-  activityId: string
-  prompt: string
-  explanation?: string | null
   shuffle?: boolean
-  options?: Prisma.MultipleChoiceOptionUncheckedCreateNestedManyWithoutActivityInput
-  hints?: Prisma.HintUncheckedCreateNestedManyWithoutActivityInput
+  activityId: string
+  questions?: Prisma.MultiChoiceActivityQuestionUncheckedCreateNestedManyWithoutMultiChoiceActivityInput
 }
 
 export type MultiChoiceActivityUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  prompt?: Prisma.StringFieldUpdateOperationsInput | string
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activity?: Prisma.ActivityUpdateOneRequiredWithoutMultiChoiceNestedInput
-  options?: Prisma.MultipleChoiceOptionUpdateManyWithoutActivityNestedInput
-  hints?: Prisma.HintUpdateManyWithoutActivityNestedInput
+  questions?: Prisma.MultiChoiceActivityQuestionUpdateManyWithoutMultiChoiceActivityNestedInput
 }
 
 export type MultiChoiceActivityUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  activityId?: Prisma.StringFieldUpdateOperationsInput | string
-  prompt?: Prisma.StringFieldUpdateOperationsInput | string
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  options?: Prisma.MultipleChoiceOptionUncheckedUpdateManyWithoutActivityNestedInput
-  hints?: Prisma.HintUncheckedUpdateManyWithoutActivityNestedInput
+  activityId?: Prisma.StringFieldUpdateOperationsInput | string
+  questions?: Prisma.MultiChoiceActivityQuestionUncheckedUpdateManyWithoutMultiChoiceActivityNestedInput
 }
 
 export type MultiChoiceActivityCreateManyInput = {
   id?: string
-  activityId: string
-  prompt: string
-  explanation?: string | null
   shuffle?: boolean
+  activityId: string
 }
 
 export type MultiChoiceActivityUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  prompt?: Prisma.StringFieldUpdateOperationsInput | string
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type MultiChoiceActivityUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  activityId?: Prisma.StringFieldUpdateOperationsInput | string
-  prompt?: Prisma.StringFieldUpdateOperationsInput | string
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  activityId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type MultiChoiceActivityNullableScalarRelationFilter = {
@@ -304,26 +259,20 @@ export type MultiChoiceActivityNullableScalarRelationFilter = {
 
 export type MultiChoiceActivityCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  activityId?: Prisma.SortOrder
-  prompt?: Prisma.SortOrder
-  explanation?: Prisma.SortOrder
   shuffle?: Prisma.SortOrder
+  activityId?: Prisma.SortOrder
 }
 
 export type MultiChoiceActivityMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  activityId?: Prisma.SortOrder
-  prompt?: Prisma.SortOrder
-  explanation?: Prisma.SortOrder
   shuffle?: Prisma.SortOrder
+  activityId?: Prisma.SortOrder
 }
 
 export type MultiChoiceActivityMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  activityId?: Prisma.SortOrder
-  prompt?: Prisma.SortOrder
-  explanation?: Prisma.SortOrder
   shuffle?: Prisma.SortOrder
+  activityId?: Prisma.SortOrder
 }
 
 export type MultiChoiceActivityScalarRelationFilter = {
@@ -367,50 +316,30 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export type MultiChoiceActivityCreateNestedOneWithoutOptionsInput = {
-  create?: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutOptionsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutOptionsInput>
-  connectOrCreate?: Prisma.MultiChoiceActivityCreateOrConnectWithoutOptionsInput
+export type MultiChoiceActivityCreateNestedOneWithoutQuestionsInput = {
+  create?: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutQuestionsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutQuestionsInput>
+  connectOrCreate?: Prisma.MultiChoiceActivityCreateOrConnectWithoutQuestionsInput
   connect?: Prisma.MultiChoiceActivityWhereUniqueInput
 }
 
-export type MultiChoiceActivityUpdateOneRequiredWithoutOptionsNestedInput = {
-  create?: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutOptionsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutOptionsInput>
-  connectOrCreate?: Prisma.MultiChoiceActivityCreateOrConnectWithoutOptionsInput
-  upsert?: Prisma.MultiChoiceActivityUpsertWithoutOptionsInput
+export type MultiChoiceActivityUpdateOneRequiredWithoutQuestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutQuestionsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutQuestionsInput>
+  connectOrCreate?: Prisma.MultiChoiceActivityCreateOrConnectWithoutQuestionsInput
+  upsert?: Prisma.MultiChoiceActivityUpsertWithoutQuestionsInput
   connect?: Prisma.MultiChoiceActivityWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MultiChoiceActivityUpdateToOneWithWhereWithoutOptionsInput, Prisma.MultiChoiceActivityUpdateWithoutOptionsInput>, Prisma.MultiChoiceActivityUncheckedUpdateWithoutOptionsInput>
-}
-
-export type MultiChoiceActivityCreateNestedOneWithoutHintsInput = {
-  create?: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutHintsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutHintsInput>
-  connectOrCreate?: Prisma.MultiChoiceActivityCreateOrConnectWithoutHintsInput
-  connect?: Prisma.MultiChoiceActivityWhereUniqueInput
-}
-
-export type MultiChoiceActivityUpdateOneRequiredWithoutHintsNestedInput = {
-  create?: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutHintsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutHintsInput>
-  connectOrCreate?: Prisma.MultiChoiceActivityCreateOrConnectWithoutHintsInput
-  upsert?: Prisma.MultiChoiceActivityUpsertWithoutHintsInput
-  connect?: Prisma.MultiChoiceActivityWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MultiChoiceActivityUpdateToOneWithWhereWithoutHintsInput, Prisma.MultiChoiceActivityUpdateWithoutHintsInput>, Prisma.MultiChoiceActivityUncheckedUpdateWithoutHintsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MultiChoiceActivityUpdateToOneWithWhereWithoutQuestionsInput, Prisma.MultiChoiceActivityUpdateWithoutQuestionsInput>, Prisma.MultiChoiceActivityUncheckedUpdateWithoutQuestionsInput>
 }
 
 export type MultiChoiceActivityCreateWithoutActivityInput = {
   id?: string
-  prompt: string
-  explanation?: string | null
   shuffle?: boolean
-  options?: Prisma.MultipleChoiceOptionCreateNestedManyWithoutActivityInput
-  hints?: Prisma.HintCreateNestedManyWithoutActivityInput
+  questions?: Prisma.MultiChoiceActivityQuestionCreateNestedManyWithoutMultiChoiceActivityInput
 }
 
 export type MultiChoiceActivityUncheckedCreateWithoutActivityInput = {
   id?: string
-  prompt: string
-  explanation?: string | null
   shuffle?: boolean
-  options?: Prisma.MultipleChoiceOptionUncheckedCreateNestedManyWithoutActivityInput
-  hints?: Prisma.HintUncheckedCreateNestedManyWithoutActivityInput
+  questions?: Prisma.MultiChoiceActivityQuestionUncheckedCreateNestedManyWithoutMultiChoiceActivityInput
 }
 
 export type MultiChoiceActivityCreateOrConnectWithoutActivityInput = {
@@ -431,124 +360,54 @@ export type MultiChoiceActivityUpdateToOneWithWhereWithoutActivityInput = {
 
 export type MultiChoiceActivityUpdateWithoutActivityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  prompt?: Prisma.StringFieldUpdateOperationsInput | string
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  options?: Prisma.MultipleChoiceOptionUpdateManyWithoutActivityNestedInput
-  hints?: Prisma.HintUpdateManyWithoutActivityNestedInput
+  questions?: Prisma.MultiChoiceActivityQuestionUpdateManyWithoutMultiChoiceActivityNestedInput
 }
 
 export type MultiChoiceActivityUncheckedUpdateWithoutActivityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  prompt?: Prisma.StringFieldUpdateOperationsInput | string
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  options?: Prisma.MultipleChoiceOptionUncheckedUpdateManyWithoutActivityNestedInput
-  hints?: Prisma.HintUncheckedUpdateManyWithoutActivityNestedInput
+  questions?: Prisma.MultiChoiceActivityQuestionUncheckedUpdateManyWithoutMultiChoiceActivityNestedInput
 }
 
-export type MultiChoiceActivityCreateWithoutOptionsInput = {
+export type MultiChoiceActivityCreateWithoutQuestionsInput = {
   id?: string
-  prompt: string
-  explanation?: string | null
   shuffle?: boolean
   activity: Prisma.ActivityCreateNestedOneWithoutMultiChoiceInput
-  hints?: Prisma.HintCreateNestedManyWithoutActivityInput
 }
 
-export type MultiChoiceActivityUncheckedCreateWithoutOptionsInput = {
+export type MultiChoiceActivityUncheckedCreateWithoutQuestionsInput = {
   id?: string
-  activityId: string
-  prompt: string
-  explanation?: string | null
   shuffle?: boolean
-  hints?: Prisma.HintUncheckedCreateNestedManyWithoutActivityInput
+  activityId: string
 }
 
-export type MultiChoiceActivityCreateOrConnectWithoutOptionsInput = {
+export type MultiChoiceActivityCreateOrConnectWithoutQuestionsInput = {
   where: Prisma.MultiChoiceActivityWhereUniqueInput
-  create: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutOptionsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutOptionsInput>
+  create: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutQuestionsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutQuestionsInput>
 }
 
-export type MultiChoiceActivityUpsertWithoutOptionsInput = {
-  update: Prisma.XOR<Prisma.MultiChoiceActivityUpdateWithoutOptionsInput, Prisma.MultiChoiceActivityUncheckedUpdateWithoutOptionsInput>
-  create: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutOptionsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutOptionsInput>
+export type MultiChoiceActivityUpsertWithoutQuestionsInput = {
+  update: Prisma.XOR<Prisma.MultiChoiceActivityUpdateWithoutQuestionsInput, Prisma.MultiChoiceActivityUncheckedUpdateWithoutQuestionsInput>
+  create: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutQuestionsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutQuestionsInput>
   where?: Prisma.MultiChoiceActivityWhereInput
 }
 
-export type MultiChoiceActivityUpdateToOneWithWhereWithoutOptionsInput = {
+export type MultiChoiceActivityUpdateToOneWithWhereWithoutQuestionsInput = {
   where?: Prisma.MultiChoiceActivityWhereInput
-  data: Prisma.XOR<Prisma.MultiChoiceActivityUpdateWithoutOptionsInput, Prisma.MultiChoiceActivityUncheckedUpdateWithoutOptionsInput>
+  data: Prisma.XOR<Prisma.MultiChoiceActivityUpdateWithoutQuestionsInput, Prisma.MultiChoiceActivityUncheckedUpdateWithoutQuestionsInput>
 }
 
-export type MultiChoiceActivityUpdateWithoutOptionsInput = {
+export type MultiChoiceActivityUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  prompt?: Prisma.StringFieldUpdateOperationsInput | string
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activity?: Prisma.ActivityUpdateOneRequiredWithoutMultiChoiceNestedInput
-  hints?: Prisma.HintUpdateManyWithoutActivityNestedInput
 }
 
-export type MultiChoiceActivityUncheckedUpdateWithoutOptionsInput = {
+export type MultiChoiceActivityUncheckedUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activityId?: Prisma.StringFieldUpdateOperationsInput | string
-  prompt?: Prisma.StringFieldUpdateOperationsInput | string
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  hints?: Prisma.HintUncheckedUpdateManyWithoutActivityNestedInput
-}
-
-export type MultiChoiceActivityCreateWithoutHintsInput = {
-  id?: string
-  prompt: string
-  explanation?: string | null
-  shuffle?: boolean
-  activity: Prisma.ActivityCreateNestedOneWithoutMultiChoiceInput
-  options?: Prisma.MultipleChoiceOptionCreateNestedManyWithoutActivityInput
-}
-
-export type MultiChoiceActivityUncheckedCreateWithoutHintsInput = {
-  id?: string
-  activityId: string
-  prompt: string
-  explanation?: string | null
-  shuffle?: boolean
-  options?: Prisma.MultipleChoiceOptionUncheckedCreateNestedManyWithoutActivityInput
-}
-
-export type MultiChoiceActivityCreateOrConnectWithoutHintsInput = {
-  where: Prisma.MultiChoiceActivityWhereUniqueInput
-  create: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutHintsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutHintsInput>
-}
-
-export type MultiChoiceActivityUpsertWithoutHintsInput = {
-  update: Prisma.XOR<Prisma.MultiChoiceActivityUpdateWithoutHintsInput, Prisma.MultiChoiceActivityUncheckedUpdateWithoutHintsInput>
-  create: Prisma.XOR<Prisma.MultiChoiceActivityCreateWithoutHintsInput, Prisma.MultiChoiceActivityUncheckedCreateWithoutHintsInput>
-  where?: Prisma.MultiChoiceActivityWhereInput
-}
-
-export type MultiChoiceActivityUpdateToOneWithWhereWithoutHintsInput = {
-  where?: Prisma.MultiChoiceActivityWhereInput
-  data: Prisma.XOR<Prisma.MultiChoiceActivityUpdateWithoutHintsInput, Prisma.MultiChoiceActivityUncheckedUpdateWithoutHintsInput>
-}
-
-export type MultiChoiceActivityUpdateWithoutHintsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  prompt?: Prisma.StringFieldUpdateOperationsInput | string
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  activity?: Prisma.ActivityUpdateOneRequiredWithoutMultiChoiceNestedInput
-  options?: Prisma.MultipleChoiceOptionUpdateManyWithoutActivityNestedInput
-}
-
-export type MultiChoiceActivityUncheckedUpdateWithoutHintsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  activityId?: Prisma.StringFieldUpdateOperationsInput | string
-  prompt?: Prisma.StringFieldUpdateOperationsInput | string
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  shuffle?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  options?: Prisma.MultipleChoiceOptionUncheckedUpdateManyWithoutActivityNestedInput
 }
 
 
@@ -557,13 +416,11 @@ export type MultiChoiceActivityUncheckedUpdateWithoutHintsInput = {
  */
 
 export type MultiChoiceActivityCountOutputType = {
-  options: number
-  hints: number
+  questions: number
 }
 
 export type MultiChoiceActivityCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  options?: boolean | MultiChoiceActivityCountOutputTypeCountOptionsArgs
-  hints?: boolean | MultiChoiceActivityCountOutputTypeCountHintsArgs
+  questions?: boolean | MultiChoiceActivityCountOutputTypeCountQuestionsArgs
 }
 
 /**
@@ -579,61 +436,44 @@ export type MultiChoiceActivityCountOutputTypeDefaultArgs<ExtArgs extends runtim
 /**
  * MultiChoiceActivityCountOutputType without action
  */
-export type MultiChoiceActivityCountOutputTypeCountOptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MultipleChoiceOptionWhereInput
-}
-
-/**
- * MultiChoiceActivityCountOutputType without action
- */
-export type MultiChoiceActivityCountOutputTypeCountHintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.HintWhereInput
+export type MultiChoiceActivityCountOutputTypeCountQuestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MultiChoiceActivityQuestionWhereInput
 }
 
 
 export type MultiChoiceActivitySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  activityId?: boolean
-  prompt?: boolean
-  explanation?: boolean
   shuffle?: boolean
+  activityId?: boolean
   activity?: boolean | Prisma.ActivityDefaultArgs<ExtArgs>
-  options?: boolean | Prisma.MultiChoiceActivity$optionsArgs<ExtArgs>
-  hints?: boolean | Prisma.MultiChoiceActivity$hintsArgs<ExtArgs>
+  questions?: boolean | Prisma.MultiChoiceActivity$questionsArgs<ExtArgs>
   _count?: boolean | Prisma.MultiChoiceActivityCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["multiChoiceActivity"]>
 
 export type MultiChoiceActivitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  activityId?: boolean
-  prompt?: boolean
-  explanation?: boolean
   shuffle?: boolean
+  activityId?: boolean
   activity?: boolean | Prisma.ActivityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["multiChoiceActivity"]>
 
 export type MultiChoiceActivitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  activityId?: boolean
-  prompt?: boolean
-  explanation?: boolean
   shuffle?: boolean
+  activityId?: boolean
   activity?: boolean | Prisma.ActivityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["multiChoiceActivity"]>
 
 export type MultiChoiceActivitySelectScalar = {
   id?: boolean
-  activityId?: boolean
-  prompt?: boolean
-  explanation?: boolean
   shuffle?: boolean
+  activityId?: boolean
 }
 
-export type MultiChoiceActivityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "activityId" | "prompt" | "explanation" | "shuffle", ExtArgs["result"]["multiChoiceActivity"]>
+export type MultiChoiceActivityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shuffle" | "activityId", ExtArgs["result"]["multiChoiceActivity"]>
 export type MultiChoiceActivityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   activity?: boolean | Prisma.ActivityDefaultArgs<ExtArgs>
-  options?: boolean | Prisma.MultiChoiceActivity$optionsArgs<ExtArgs>
-  hints?: boolean | Prisma.MultiChoiceActivity$hintsArgs<ExtArgs>
+  questions?: boolean | Prisma.MultiChoiceActivity$questionsArgs<ExtArgs>
   _count?: boolean | Prisma.MultiChoiceActivityCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MultiChoiceActivityIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -647,15 +487,12 @@ export type $MultiChoiceActivityPayload<ExtArgs extends runtime.Types.Extensions
   name: "MultiChoiceActivity"
   objects: {
     activity: Prisma.$ActivityPayload<ExtArgs>
-    options: Prisma.$MultipleChoiceOptionPayload<ExtArgs>[]
-    hints: Prisma.$HintPayload<ExtArgs>[]
+    questions: Prisma.$MultiChoiceActivityQuestionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    activityId: string
-    prompt: string
-    explanation: string | null
     shuffle: boolean
+    activityId: string
   }, ExtArgs["result"]["multiChoiceActivity"]>
   composites: {}
 }
@@ -1051,8 +888,7 @@ readonly fields: MultiChoiceActivityFieldRefs;
 export interface Prisma__MultiChoiceActivityClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   activity<T extends Prisma.ActivityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActivityDefaultArgs<ExtArgs>>): Prisma.Prisma__ActivityClient<runtime.Types.Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  options<T extends Prisma.MultiChoiceActivity$optionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MultiChoiceActivity$optionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MultipleChoiceOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  hints<T extends Prisma.MultiChoiceActivity$hintsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MultiChoiceActivity$hintsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  questions<T extends Prisma.MultiChoiceActivity$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MultiChoiceActivity$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MultiChoiceActivityQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1083,10 +919,8 @@ export interface Prisma__MultiChoiceActivityClient<T, Null = never, ExtArgs exte
  */
 export interface MultiChoiceActivityFieldRefs {
   readonly id: Prisma.FieldRef<"MultiChoiceActivity", 'String'>
-  readonly activityId: Prisma.FieldRef<"MultiChoiceActivity", 'String'>
-  readonly prompt: Prisma.FieldRef<"MultiChoiceActivity", 'String'>
-  readonly explanation: Prisma.FieldRef<"MultiChoiceActivity", 'String'>
   readonly shuffle: Prisma.FieldRef<"MultiChoiceActivity", 'Boolean'>
+  readonly activityId: Prisma.FieldRef<"MultiChoiceActivity", 'String'>
 }
     
 
@@ -1488,51 +1322,27 @@ export type MultiChoiceActivityDeleteManyArgs<ExtArgs extends runtime.Types.Exte
 }
 
 /**
- * MultiChoiceActivity.options
+ * MultiChoiceActivity.questions
  */
-export type MultiChoiceActivity$optionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type MultiChoiceActivity$questionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MultipleChoiceOption
+   * Select specific fields to fetch from the MultiChoiceActivityQuestion
    */
-  select?: Prisma.MultipleChoiceOptionSelect<ExtArgs> | null
+  select?: Prisma.MultiChoiceActivityQuestionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MultipleChoiceOption
+   * Omit specific fields from the MultiChoiceActivityQuestion
    */
-  omit?: Prisma.MultipleChoiceOptionOmit<ExtArgs> | null
+  omit?: Prisma.MultiChoiceActivityQuestionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MultipleChoiceOptionInclude<ExtArgs> | null
-  where?: Prisma.MultipleChoiceOptionWhereInput
-  orderBy?: Prisma.MultipleChoiceOptionOrderByWithRelationInput | Prisma.MultipleChoiceOptionOrderByWithRelationInput[]
-  cursor?: Prisma.MultipleChoiceOptionWhereUniqueInput
+  include?: Prisma.MultiChoiceActivityQuestionInclude<ExtArgs> | null
+  where?: Prisma.MultiChoiceActivityQuestionWhereInput
+  orderBy?: Prisma.MultiChoiceActivityQuestionOrderByWithRelationInput | Prisma.MultiChoiceActivityQuestionOrderByWithRelationInput[]
+  cursor?: Prisma.MultiChoiceActivityQuestionWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.MultipleChoiceOptionScalarFieldEnum | Prisma.MultipleChoiceOptionScalarFieldEnum[]
-}
-
-/**
- * MultiChoiceActivity.hints
- */
-export type MultiChoiceActivity$hintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Hint
-   */
-  select?: Prisma.HintSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Hint
-   */
-  omit?: Prisma.HintOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HintInclude<ExtArgs> | null
-  where?: Prisma.HintWhereInput
-  orderBy?: Prisma.HintOrderByWithRelationInput | Prisma.HintOrderByWithRelationInput[]
-  cursor?: Prisma.HintWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.HintScalarFieldEnum | Prisma.HintScalarFieldEnum[]
+  distinct?: Prisma.MultiChoiceActivityQuestionScalarFieldEnum | Prisma.MultiChoiceActivityQuestionScalarFieldEnum[]
 }
 
 /**

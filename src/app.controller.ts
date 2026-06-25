@@ -5,6 +5,8 @@ import {
   Get,
   Post,
   UseGuards,
+  HttpStatus,
+  HttpCode,
 } from '@nestjs/common';
 import Redis from 'ioredis';
 import { InjectRedis } from '@nestjs-modules/ioredis';
@@ -54,6 +56,7 @@ export class AppController {
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
+  @HttpCode(HttpStatus.OK)
   login(@Request() req: RequestWithPassportUser) {
     return this.authService.login(req.user);
   }

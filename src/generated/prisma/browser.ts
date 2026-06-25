@@ -48,6 +48,11 @@ export type Asset = Prisma.AssetModel
  */
 export type MultiChoiceActivity = Prisma.MultiChoiceActivityModel
 /**
+ * Model MultiChoiceActivityQuestion
+ * 
+ */
+export type MultiChoiceActivityQuestion = Prisma.MultiChoiceActivityQuestionModel
+/**
  * Model MultipleChoiceOption
  * 
  */

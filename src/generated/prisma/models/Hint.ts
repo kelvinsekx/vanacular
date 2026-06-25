@@ -36,7 +36,7 @@ export type HintSumAggregateOutputType = {
 
 export type HintMinAggregateOutputType = {
   id: string | null
-  activityId: string | null
+  questionId: string | null
   text: string | null
   order: number | null
   createdAt: Date | null
@@ -44,7 +44,7 @@ export type HintMinAggregateOutputType = {
 
 export type HintMaxAggregateOutputType = {
   id: string | null
-  activityId: string | null
+  questionId: string | null
   text: string | null
   order: number | null
   createdAt: Date | null
@@ -52,7 +52,7 @@ export type HintMaxAggregateOutputType = {
 
 export type HintCountAggregateOutputType = {
   id: number
-  activityId: number
+  questionId: number
   text: number
   order: number
   createdAt: number
@@ -70,7 +70,7 @@ export type HintSumAggregateInputType = {
 
 export type HintMinAggregateInputType = {
   id?: true
-  activityId?: true
+  questionId?: true
   text?: true
   order?: true
   createdAt?: true
@@ -78,7 +78,7 @@ export type HintMinAggregateInputType = {
 
 export type HintMaxAggregateInputType = {
   id?: true
-  activityId?: true
+  questionId?: true
   text?: true
   order?: true
   createdAt?: true
@@ -86,7 +86,7 @@ export type HintMaxAggregateInputType = {
 
 export type HintCountAggregateInputType = {
   id?: true
-  activityId?: true
+  questionId?: true
   text?: true
   order?: true
   createdAt?: true
@@ -181,7 +181,7 @@ export type HintGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type HintGroupByOutputType = {
   id: string
-  activityId: string
+  questionId: string
   text: string
   order: number | null
   createdAt: Date
@@ -212,20 +212,20 @@ export type HintWhereInput = {
   OR?: Prisma.HintWhereInput[]
   NOT?: Prisma.HintWhereInput | Prisma.HintWhereInput[]
   id?: Prisma.StringFilter<"Hint"> | string
-  activityId?: Prisma.StringFilter<"Hint"> | string
+  questionId?: Prisma.StringFilter<"Hint"> | string
   text?: Prisma.StringFilter<"Hint"> | string
   order?: Prisma.IntNullableFilter<"Hint"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Hint"> | Date | string
-  activity?: Prisma.XOR<Prisma.MultiChoiceActivityScalarRelationFilter, Prisma.MultiChoiceActivityWhereInput>
+  question?: Prisma.XOR<Prisma.MultiChoiceActivityQuestionScalarRelationFilter, Prisma.MultiChoiceActivityQuestionWhereInput>
 }
 
 export type HintOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  activityId?: Prisma.SortOrder
+  questionId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   order?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  activity?: Prisma.MultiChoiceActivityOrderByWithRelationInput
+  question?: Prisma.MultiChoiceActivityQuestionOrderByWithRelationInput
 }
 
 export type HintWhereUniqueInput = Prisma.AtLeast<{
@@ -233,16 +233,16 @@ export type HintWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.HintWhereInput | Prisma.HintWhereInput[]
   OR?: Prisma.HintWhereInput[]
   NOT?: Prisma.HintWhereInput | Prisma.HintWhereInput[]
-  activityId?: Prisma.StringFilter<"Hint"> | string
+  questionId?: Prisma.StringFilter<"Hint"> | string
   text?: Prisma.StringFilter<"Hint"> | string
   order?: Prisma.IntNullableFilter<"Hint"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Hint"> | Date | string
-  activity?: Prisma.XOR<Prisma.MultiChoiceActivityScalarRelationFilter, Prisma.MultiChoiceActivityWhereInput>
+  question?: Prisma.XOR<Prisma.MultiChoiceActivityQuestionScalarRelationFilter, Prisma.MultiChoiceActivityQuestionWhereInput>
 }, "id">
 
 export type HintOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  activityId?: Prisma.SortOrder
+  questionId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   order?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -258,7 +258,7 @@ export type HintScalarWhereWithAggregatesInput = {
   OR?: Prisma.HintScalarWhereWithAggregatesInput[]
   NOT?: Prisma.HintScalarWhereWithAggregatesInput | Prisma.HintScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Hint"> | string
-  activityId?: Prisma.StringWithAggregatesFilter<"Hint"> | string
+  questionId?: Prisma.StringWithAggregatesFilter<"Hint"> | string
   text?: Prisma.StringWithAggregatesFilter<"Hint"> | string
   order?: Prisma.IntNullableWithAggregatesFilter<"Hint"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Hint"> | Date | string
@@ -269,12 +269,12 @@ export type HintCreateInput = {
   text: string
   order?: number | null
   createdAt?: Date | string
-  activity: Prisma.MultiChoiceActivityCreateNestedOneWithoutHintsInput
+  question: Prisma.MultiChoiceActivityQuestionCreateNestedOneWithoutHintsInput
 }
 
 export type HintUncheckedCreateInput = {
   id?: string
-  activityId: string
+  questionId: string
   text: string
   order?: number | null
   createdAt?: Date | string
@@ -285,12 +285,12 @@ export type HintUpdateInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  activity?: Prisma.MultiChoiceActivityUpdateOneRequiredWithoutHintsNestedInput
+  question?: Prisma.MultiChoiceActivityQuestionUpdateOneRequiredWithoutHintsNestedInput
 }
 
 export type HintUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  activityId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionId?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -298,7 +298,7 @@ export type HintUncheckedUpdateInput = {
 
 export type HintCreateManyInput = {
   id?: string
-  activityId: string
+  questionId: string
   text: string
   order?: number | null
   createdAt?: Date | string
@@ -313,7 +313,7 @@ export type HintUpdateManyMutationInput = {
 
 export type HintUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  activityId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionId?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -331,7 +331,7 @@ export type HintOrderByRelationAggregateInput = {
 
 export type HintCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  activityId?: Prisma.SortOrder
+  questionId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -343,7 +343,7 @@ export type HintAvgOrderByAggregateInput = {
 
 export type HintMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  activityId?: Prisma.SortOrder
+  questionId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -351,7 +351,7 @@ export type HintMaxOrderByAggregateInput = {
 
 export type HintMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  activityId?: Prisma.SortOrder
+  questionId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -361,86 +361,86 @@ export type HintSumOrderByAggregateInput = {
   order?: Prisma.SortOrder
 }
 
-export type HintCreateNestedManyWithoutActivityInput = {
-  create?: Prisma.XOR<Prisma.HintCreateWithoutActivityInput, Prisma.HintUncheckedCreateWithoutActivityInput> | Prisma.HintCreateWithoutActivityInput[] | Prisma.HintUncheckedCreateWithoutActivityInput[]
-  connectOrCreate?: Prisma.HintCreateOrConnectWithoutActivityInput | Prisma.HintCreateOrConnectWithoutActivityInput[]
-  createMany?: Prisma.HintCreateManyActivityInputEnvelope
+export type HintCreateNestedManyWithoutQuestionInput = {
+  create?: Prisma.XOR<Prisma.HintCreateWithoutQuestionInput, Prisma.HintUncheckedCreateWithoutQuestionInput> | Prisma.HintCreateWithoutQuestionInput[] | Prisma.HintUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.HintCreateOrConnectWithoutQuestionInput | Prisma.HintCreateOrConnectWithoutQuestionInput[]
+  createMany?: Prisma.HintCreateManyQuestionInputEnvelope
   connect?: Prisma.HintWhereUniqueInput | Prisma.HintWhereUniqueInput[]
 }
 
-export type HintUncheckedCreateNestedManyWithoutActivityInput = {
-  create?: Prisma.XOR<Prisma.HintCreateWithoutActivityInput, Prisma.HintUncheckedCreateWithoutActivityInput> | Prisma.HintCreateWithoutActivityInput[] | Prisma.HintUncheckedCreateWithoutActivityInput[]
-  connectOrCreate?: Prisma.HintCreateOrConnectWithoutActivityInput | Prisma.HintCreateOrConnectWithoutActivityInput[]
-  createMany?: Prisma.HintCreateManyActivityInputEnvelope
+export type HintUncheckedCreateNestedManyWithoutQuestionInput = {
+  create?: Prisma.XOR<Prisma.HintCreateWithoutQuestionInput, Prisma.HintUncheckedCreateWithoutQuestionInput> | Prisma.HintCreateWithoutQuestionInput[] | Prisma.HintUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.HintCreateOrConnectWithoutQuestionInput | Prisma.HintCreateOrConnectWithoutQuestionInput[]
+  createMany?: Prisma.HintCreateManyQuestionInputEnvelope
   connect?: Prisma.HintWhereUniqueInput | Prisma.HintWhereUniqueInput[]
 }
 
-export type HintUpdateManyWithoutActivityNestedInput = {
-  create?: Prisma.XOR<Prisma.HintCreateWithoutActivityInput, Prisma.HintUncheckedCreateWithoutActivityInput> | Prisma.HintCreateWithoutActivityInput[] | Prisma.HintUncheckedCreateWithoutActivityInput[]
-  connectOrCreate?: Prisma.HintCreateOrConnectWithoutActivityInput | Prisma.HintCreateOrConnectWithoutActivityInput[]
-  upsert?: Prisma.HintUpsertWithWhereUniqueWithoutActivityInput | Prisma.HintUpsertWithWhereUniqueWithoutActivityInput[]
-  createMany?: Prisma.HintCreateManyActivityInputEnvelope
+export type HintUpdateManyWithoutQuestionNestedInput = {
+  create?: Prisma.XOR<Prisma.HintCreateWithoutQuestionInput, Prisma.HintUncheckedCreateWithoutQuestionInput> | Prisma.HintCreateWithoutQuestionInput[] | Prisma.HintUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.HintCreateOrConnectWithoutQuestionInput | Prisma.HintCreateOrConnectWithoutQuestionInput[]
+  upsert?: Prisma.HintUpsertWithWhereUniqueWithoutQuestionInput | Prisma.HintUpsertWithWhereUniqueWithoutQuestionInput[]
+  createMany?: Prisma.HintCreateManyQuestionInputEnvelope
   set?: Prisma.HintWhereUniqueInput | Prisma.HintWhereUniqueInput[]
   disconnect?: Prisma.HintWhereUniqueInput | Prisma.HintWhereUniqueInput[]
   delete?: Prisma.HintWhereUniqueInput | Prisma.HintWhereUniqueInput[]
   connect?: Prisma.HintWhereUniqueInput | Prisma.HintWhereUniqueInput[]
-  update?: Prisma.HintUpdateWithWhereUniqueWithoutActivityInput | Prisma.HintUpdateWithWhereUniqueWithoutActivityInput[]
-  updateMany?: Prisma.HintUpdateManyWithWhereWithoutActivityInput | Prisma.HintUpdateManyWithWhereWithoutActivityInput[]
+  update?: Prisma.HintUpdateWithWhereUniqueWithoutQuestionInput | Prisma.HintUpdateWithWhereUniqueWithoutQuestionInput[]
+  updateMany?: Prisma.HintUpdateManyWithWhereWithoutQuestionInput | Prisma.HintUpdateManyWithWhereWithoutQuestionInput[]
   deleteMany?: Prisma.HintScalarWhereInput | Prisma.HintScalarWhereInput[]
 }
 
-export type HintUncheckedUpdateManyWithoutActivityNestedInput = {
-  create?: Prisma.XOR<Prisma.HintCreateWithoutActivityInput, Prisma.HintUncheckedCreateWithoutActivityInput> | Prisma.HintCreateWithoutActivityInput[] | Prisma.HintUncheckedCreateWithoutActivityInput[]
-  connectOrCreate?: Prisma.HintCreateOrConnectWithoutActivityInput | Prisma.HintCreateOrConnectWithoutActivityInput[]
-  upsert?: Prisma.HintUpsertWithWhereUniqueWithoutActivityInput | Prisma.HintUpsertWithWhereUniqueWithoutActivityInput[]
-  createMany?: Prisma.HintCreateManyActivityInputEnvelope
+export type HintUncheckedUpdateManyWithoutQuestionNestedInput = {
+  create?: Prisma.XOR<Prisma.HintCreateWithoutQuestionInput, Prisma.HintUncheckedCreateWithoutQuestionInput> | Prisma.HintCreateWithoutQuestionInput[] | Prisma.HintUncheckedCreateWithoutQuestionInput[]
+  connectOrCreate?: Prisma.HintCreateOrConnectWithoutQuestionInput | Prisma.HintCreateOrConnectWithoutQuestionInput[]
+  upsert?: Prisma.HintUpsertWithWhereUniqueWithoutQuestionInput | Prisma.HintUpsertWithWhereUniqueWithoutQuestionInput[]
+  createMany?: Prisma.HintCreateManyQuestionInputEnvelope
   set?: Prisma.HintWhereUniqueInput | Prisma.HintWhereUniqueInput[]
   disconnect?: Prisma.HintWhereUniqueInput | Prisma.HintWhereUniqueInput[]
   delete?: Prisma.HintWhereUniqueInput | Prisma.HintWhereUniqueInput[]
   connect?: Prisma.HintWhereUniqueInput | Prisma.HintWhereUniqueInput[]
-  update?: Prisma.HintUpdateWithWhereUniqueWithoutActivityInput | Prisma.HintUpdateWithWhereUniqueWithoutActivityInput[]
-  updateMany?: Prisma.HintUpdateManyWithWhereWithoutActivityInput | Prisma.HintUpdateManyWithWhereWithoutActivityInput[]
+  update?: Prisma.HintUpdateWithWhereUniqueWithoutQuestionInput | Prisma.HintUpdateWithWhereUniqueWithoutQuestionInput[]
+  updateMany?: Prisma.HintUpdateManyWithWhereWithoutQuestionInput | Prisma.HintUpdateManyWithWhereWithoutQuestionInput[]
   deleteMany?: Prisma.HintScalarWhereInput | Prisma.HintScalarWhereInput[]
 }
 
-export type HintCreateWithoutActivityInput = {
+export type HintCreateWithoutQuestionInput = {
   id?: string
   text: string
   order?: number | null
   createdAt?: Date | string
 }
 
-export type HintUncheckedCreateWithoutActivityInput = {
+export type HintUncheckedCreateWithoutQuestionInput = {
   id?: string
   text: string
   order?: number | null
   createdAt?: Date | string
 }
 
-export type HintCreateOrConnectWithoutActivityInput = {
+export type HintCreateOrConnectWithoutQuestionInput = {
   where: Prisma.HintWhereUniqueInput
-  create: Prisma.XOR<Prisma.HintCreateWithoutActivityInput, Prisma.HintUncheckedCreateWithoutActivityInput>
+  create: Prisma.XOR<Prisma.HintCreateWithoutQuestionInput, Prisma.HintUncheckedCreateWithoutQuestionInput>
 }
 
-export type HintCreateManyActivityInputEnvelope = {
-  data: Prisma.HintCreateManyActivityInput | Prisma.HintCreateManyActivityInput[]
+export type HintCreateManyQuestionInputEnvelope = {
+  data: Prisma.HintCreateManyQuestionInput | Prisma.HintCreateManyQuestionInput[]
   skipDuplicates?: boolean
 }
 
-export type HintUpsertWithWhereUniqueWithoutActivityInput = {
+export type HintUpsertWithWhereUniqueWithoutQuestionInput = {
   where: Prisma.HintWhereUniqueInput
-  update: Prisma.XOR<Prisma.HintUpdateWithoutActivityInput, Prisma.HintUncheckedUpdateWithoutActivityInput>
-  create: Prisma.XOR<Prisma.HintCreateWithoutActivityInput, Prisma.HintUncheckedCreateWithoutActivityInput>
+  update: Prisma.XOR<Prisma.HintUpdateWithoutQuestionInput, Prisma.HintUncheckedUpdateWithoutQuestionInput>
+  create: Prisma.XOR<Prisma.HintCreateWithoutQuestionInput, Prisma.HintUncheckedCreateWithoutQuestionInput>
 }
 
-export type HintUpdateWithWhereUniqueWithoutActivityInput = {
+export type HintUpdateWithWhereUniqueWithoutQuestionInput = {
   where: Prisma.HintWhereUniqueInput
-  data: Prisma.XOR<Prisma.HintUpdateWithoutActivityInput, Prisma.HintUncheckedUpdateWithoutActivityInput>
+  data: Prisma.XOR<Prisma.HintUpdateWithoutQuestionInput, Prisma.HintUncheckedUpdateWithoutQuestionInput>
 }
 
-export type HintUpdateManyWithWhereWithoutActivityInput = {
+export type HintUpdateManyWithWhereWithoutQuestionInput = {
   where: Prisma.HintScalarWhereInput
-  data: Prisma.XOR<Prisma.HintUpdateManyMutationInput, Prisma.HintUncheckedUpdateManyWithoutActivityInput>
+  data: Prisma.XOR<Prisma.HintUpdateManyMutationInput, Prisma.HintUncheckedUpdateManyWithoutQuestionInput>
 }
 
 export type HintScalarWhereInput = {
@@ -448,34 +448,34 @@ export type HintScalarWhereInput = {
   OR?: Prisma.HintScalarWhereInput[]
   NOT?: Prisma.HintScalarWhereInput | Prisma.HintScalarWhereInput[]
   id?: Prisma.StringFilter<"Hint"> | string
-  activityId?: Prisma.StringFilter<"Hint"> | string
+  questionId?: Prisma.StringFilter<"Hint"> | string
   text?: Prisma.StringFilter<"Hint"> | string
   order?: Prisma.IntNullableFilter<"Hint"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Hint"> | Date | string
 }
 
-export type HintCreateManyActivityInput = {
+export type HintCreateManyQuestionInput = {
   id?: string
   text: string
   order?: number | null
   createdAt?: Date | string
 }
 
-export type HintUpdateWithoutActivityInput = {
+export type HintUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type HintUncheckedUpdateWithoutActivityInput = {
+export type HintUncheckedUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type HintUncheckedUpdateManyWithoutActivityInput = {
+export type HintUncheckedUpdateManyWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -486,58 +486,58 @@ export type HintUncheckedUpdateManyWithoutActivityInput = {
 
 export type HintSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  activityId?: boolean
+  questionId?: boolean
   text?: boolean
   order?: boolean
   createdAt?: boolean
-  activity?: boolean | Prisma.MultiChoiceActivityDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.MultiChoiceActivityQuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["hint"]>
 
 export type HintSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  activityId?: boolean
+  questionId?: boolean
   text?: boolean
   order?: boolean
   createdAt?: boolean
-  activity?: boolean | Prisma.MultiChoiceActivityDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.MultiChoiceActivityQuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["hint"]>
 
 export type HintSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  activityId?: boolean
+  questionId?: boolean
   text?: boolean
   order?: boolean
   createdAt?: boolean
-  activity?: boolean | Prisma.MultiChoiceActivityDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.MultiChoiceActivityQuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["hint"]>
 
 export type HintSelectScalar = {
   id?: boolean
-  activityId?: boolean
+  questionId?: boolean
   text?: boolean
   order?: boolean
   createdAt?: boolean
 }
 
-export type HintOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "activityId" | "text" | "order" | "createdAt", ExtArgs["result"]["hint"]>
+export type HintOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "questionId" | "text" | "order" | "createdAt", ExtArgs["result"]["hint"]>
 export type HintInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  activity?: boolean | Prisma.MultiChoiceActivityDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.MultiChoiceActivityQuestionDefaultArgs<ExtArgs>
 }
 export type HintIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  activity?: boolean | Prisma.MultiChoiceActivityDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.MultiChoiceActivityQuestionDefaultArgs<ExtArgs>
 }
 export type HintIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  activity?: boolean | Prisma.MultiChoiceActivityDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.MultiChoiceActivityQuestionDefaultArgs<ExtArgs>
 }
 
 export type $HintPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Hint"
   objects: {
-    activity: Prisma.$MultiChoiceActivityPayload<ExtArgs>
+    question: Prisma.$MultiChoiceActivityQuestionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    activityId: string
+    questionId: string
     text: string
     order: number | null
     createdAt: Date
@@ -935,7 +935,7 @@ readonly fields: HintFieldRefs;
  */
 export interface Prisma__HintClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  activity<T extends Prisma.MultiChoiceActivityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MultiChoiceActivityDefaultArgs<ExtArgs>>): Prisma.Prisma__MultiChoiceActivityClient<runtime.Types.Result.GetResult<Prisma.$MultiChoiceActivityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  question<T extends Prisma.MultiChoiceActivityQuestionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MultiChoiceActivityQuestionDefaultArgs<ExtArgs>>): Prisma.Prisma__MultiChoiceActivityQuestionClient<runtime.Types.Result.GetResult<Prisma.$MultiChoiceActivityQuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -966,7 +966,7 @@ export interface Prisma__HintClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface HintFieldRefs {
   readonly id: Prisma.FieldRef<"Hint", 'String'>
-  readonly activityId: Prisma.FieldRef<"Hint", 'String'>
+  readonly questionId: Prisma.FieldRef<"Hint", 'String'>
   readonly text: Prisma.FieldRef<"Hint", 'String'>
   readonly order: Prisma.FieldRef<"Hint", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Hint", 'DateTime'>
